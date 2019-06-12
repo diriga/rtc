@@ -143,7 +143,7 @@ $(function() {
     //==============================
     $('#create').on('submit', function(e) {
         e.preventDefault();
-
+        debugger;
         // Get conference name
         var conferenceName = document.getElementById('conference-name').value;
 

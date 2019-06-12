@@ -63,6 +63,7 @@ $(function() {
             //=====================================================
             connectedConversation.on('streamAdded', function(stream) {
                 stream.addInDiv('remote-container', 'remote-media-' + stream.streamId, {}, false);
+                document.getElementById('title').innerHTML = 'En curso';
                 /*
                                 // Subscribed Stream is available for display
                                 // Get remote media container
@@ -141,15 +142,17 @@ $(function() {
     //==============================
     // CREATE CONFERENCE
     //==============================
-    $('#create').on('submit', function(e) {
-        e.preventDefault();
-        debugger;
-        // Get conference name
-        var conferenceName = document.getElementById('conference-name').value;
+    $(document).ready(function() {
+        console.log("ready!");
 
-        document.getElementById('create').style.display = 'none';
-        document.getElementById('conference').style.display = 'inline-block';
-        document.getElementById('title').innerHTML = 'You are in conference: ' + conferenceName;
+        var roomId = (new URL(location.href)).searchParams.get('roomId');
+
+        // Get conference name
+        var conferenceName = roomId;
+        console.log(conferenceName);
+        //document.getElementById('create').style.display = 'none';
+        //document.getElementById('conference').style.display = 'inline-block';
+        document.getElementById('title').innerHTML = 'Sala en espera...';
 
         // Join conference
         joinConference(conferenceName);
