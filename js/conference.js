@@ -151,7 +151,7 @@ $(function() {
         var conferenceName = roomId;
         console.log(conferenceName);
         //document.getElementById('create').style.display = 'none';
-        document.getElementById('conference').style.display = 'inline-block';
+        document.getElementById('conference').style.display = 'block';
         document.getElementById('title').innerHTML = 'Sala en espera...';
 
         // Join conference
