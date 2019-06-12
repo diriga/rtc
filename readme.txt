@@ -1,6 +1,1 @@
-SOMEE
-
-
-mail: rtcconference@yopmail.com
-user: rtcconference
-pass: Rtcconference123!
+VIDEO CONFERENCE + CHAT
