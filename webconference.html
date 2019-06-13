@@ -16,14 +16,16 @@
     <!-- Demo -->
     <div id="container">
         <small id="title" style="color: #6c757d;position: absolute;z-index: 2;"><i class="fa fa-video-camera"></i></small>
+        <i id="loading" class="fa fa-spinner fa-spin"></i>
+        <small id="aviso" style="color: white;position: absolute;z-index: 4;margin-top: 140px;left: 45%;display: none;">Comunicación finalizada</small>
         <div id="conference">
             <div id="remote-container"></div>
             <div id="local-container"></div>
         </div>
     </div>
     <div class="footer-div">
-        <button class="btn btn-lg btn-outline-info m-4 rounded-circle"><i class="fa fa-stop"></i></button>
-        <button class="btn btn-lg btn-outline-info rounded-circle"><i class="fa fa-comment"></i></button>
+        <button id="btnStopConference" class="btn btn-lg btn-outline-info m-4 rounded-circle"><i class="fa fa-stop"></i></button>
+        <button id="btnOpenChat" class="btn btn-lg btn-outline-info rounded-circle"><i class="fa fa-comment"></i></button>
     </div>
 
     <!-- Scripts -->

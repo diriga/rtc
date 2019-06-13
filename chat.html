@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Peer to Peer Chat|Demo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="../main/images/favicon.png" />
+
+    <!-- Styles -->
+    <!-- <link href="../main/css/main.css" rel="stylesheet"> -->
+    <link href="css/chat.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <i id="loading" class="fa fa-spinner fa-spin"></i>
+        <div class="messaging">
+            <div class="inbox_msg">
+                <div class="mesgs" style="width: 100%;">
+                    <div class="msg_history">
+                        <ul id="message-list" style="list-style: none;" class="pl-0"></ul>
+                    </div>
+                    <div id="chat-footer" class="type_msg">
+                        <div class="input_msg_write">
+                            <input autofocus id="typing-area" type="text" class="write_msg" placeholder="Escribe un mensaje" />
+                            <button id="send-message" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <!-- <div id="container">
+        <h2 id="title">Group chat demo</h2>
+
+        <div id="conversation-selector">
+            <input type="text" name="conversation-name" id="conversation-name" placeholder="Conversation name" autocomplete="off">
+            <button id="start-chat">Chat</button>
+            <legend id="my-number-legend">Your contact ID is : <span id="my-number"></span></legend>
+        </div> -->
+</body>
+
+
+<!-- <div id="chat">
+            <h3>Chat in Conversation : <span id="active-conversation-name"></span></h3>
+            <div id="chat-body">
+                <ul id="message-list"></ul>
+                <ul id="active-users">
+                    <li><b>Active users</b></li>
+                </ul>
+            </div>
+            <div id="chat-footer">
+                <input id="typing-area" placeholder="Type a message!" type="text" />
+                <button id="send-message">Send</button>
+            </div>
+        </div> -->
+<!-- </div> -->
+<!-- Scripts -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cloud.apizee.com/apiRTC/apiRTC-latest.min.js"></script>
+<script type="text/javascript" src="js/chat.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>

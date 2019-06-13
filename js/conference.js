@@ -63,7 +63,7 @@ $(function() {
             //=====================================================
             connectedConversation.on('streamAdded', function(stream) {
                 stream.addInDiv('remote-container', 'remote-media-' + stream.streamId, {}, false);
-                //document.getElementById('title').innerHTML = 'En curso';
+                document.getElementById('loading').style.display = 'none';
                 /*
                                 // Subscribed Stream is available for display
                                 // Get remote media container
@@ -80,6 +80,7 @@ $(function() {
                 */
             }).on('streamRemoved', function(stream) {
                 stream.removeFromDiv('remote-container', 'remote-media-' + stream.streamId);
+                //document.getElementById('aviso').style.display = 'block';
                 /*
                                 document.getElementById('remote-media-' + stream.streamId).remove();
                 */
@@ -152,9 +153,21 @@ $(function() {
         console.log(conferenceName);
         //document.getElementById('create').style.display = 'none';
         document.getElementById('conference').style.display = 'block';
+        document.getElementById('loading').style.display = 'block';
         //document.getElementById('title').innerHTML = 'Sala en espera...';
 
         // Join conference
         joinConference(conferenceName);
     });
+
+    $('#btnStopConference').click(function(e) {
+        open('', '_self').close();
+    });
+
+    $('#btnOpenChat').click(function(e) {
+        location.href = 'chat.html?chatId=' + encodeURI("metrikchat123");
+
+    });
+
+
 });

@@ -12,6 +12,16 @@
     display: inline-block;
 }
 
+#loading {
+    position: absolute;
+    z-index: 4;
+    font-size: 40px;
+    color: white;
+    margin-top: 140px;
+    display: none;
+    left: 49%;
+}
+
 .footer-div {
     background-color: black;
     height: 100px;
@@ -78,7 +88,6 @@
     padding-top: 25px;
     height: 0;
     border-top: 20px solid #e1e1e1;
-    border-bottom: 20px solid #161616;
 }
 
 #container #conference #local-container video {
