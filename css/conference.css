@@ -1,7 +1,6 @@
 #container {
     width: 100%;
-    min-height: calc(100% - 44px);
-    margin-bottom: -28px;
+    margin-top: 10px;
     text-align: center;
 }
 
@@ -72,8 +71,7 @@
 }
 
 #container #conference #local-container video {
-    width: 140px;
-    height: 160px;
+    width: 120px;
     border-radius: 15px;
     /* position: absolute; */
     margin-right: 10px;
