@@ -73,6 +73,7 @@
 
 #container #conference #local-container video {
     width: 140px;
+    height: 160px;
     border-radius: 15px;
     /* position: absolute; */
     margin-right: 10px;
