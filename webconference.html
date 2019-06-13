@@ -2,25 +2,28 @@
 <html lang="en">
 
 <head>
-    <title>Demos - Conference</title>
+    <title>Videconferencia</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="../main/images/favicon.png" />
-
     <!-- Styles -->
     <!-- <link href="main/css/main.css" rel="stylesheet"> -->
-    <link href="css/conference.css" rel="stylesheet">
+    <link href="css/webconference.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
-<body style="background-color: black !important">
+<body style="background-color: #242424 !important;overflow: hidden;">
     <!-- Demo -->
     <div id="container">
-        <h4 id="title" style="color: white">Conferencia</h4>
+        <small id="title" style="color: #6c757d;position: absolute;z-index: 2;"><i class="fa fa-video-camera"></i></small>
         <div id="conference">
             <div id="remote-container"></div>
             <div id="local-container"></div>
         </div>
+    </div>
+    <div class="footer-div">
+        <button class="btn btn-lg btn-outline-info m-4 rounded-circle"><i class="fa fa-stop"></i></button>
+        <button class="btn btn-lg btn-outline-info rounded-circle"><i class="fa fa-comment"></i></button>
     </div>
 
     <!-- Scripts -->

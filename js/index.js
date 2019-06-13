@@ -1,7 +1,11 @@
 $(function() {
     'use strict';
 
-    $('#btnUnirse').click(function(e) {
-        location.href = 'conference.html?roomId=' + encodeURI("metrik123");
+    $('#btnUnirseMobile').click(function(e) {
+        location.href = 'mobileconference.html?roomId=' + encodeURI("metrik123");
+    });
+
+    $('#btnUnirseWeb').click(function(e) {
+        location.href = 'webconference.html?roomId=' + encodeURI("metrik123");
     });
 });

@@ -63,7 +63,7 @@ $(function() {
             //=====================================================
             connectedConversation.on('streamAdded', function(stream) {
                 stream.addInDiv('remote-container', 'remote-media-' + stream.streamId, {}, false);
-                document.getElementById('title').innerHTML = 'En curso';
+                //document.getElementById('title').innerHTML = 'En curso';
                 /*
                                 // Subscribed Stream is available for display
                                 // Get remote media container
@@ -152,7 +152,7 @@ $(function() {
         console.log(conferenceName);
         //document.getElementById('create').style.display = 'none';
         document.getElementById('conference').style.display = 'block';
-        document.getElementById('title').innerHTML = 'Sala en espera...';
+        //document.getElementById('title').innerHTML = 'Sala en espera...';
 
         // Join conference
         joinConference(conferenceName);

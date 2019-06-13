@@ -1,6 +1,4 @@
 #container {
-    width: 100%;
-    margin-top: 10px;
     text-align: center;
 }
 
@@ -12,6 +10,16 @@
 
 #container #create {
     display: inline-block;
+}
+
+.footer-div {
+    background-color: black;
+    height: 100px;
+    /* margin-top: -50px; */
+    /* z-index: 3; */
+    position: absolute;
+    width: 100%;
+    bottom: 0;
 }
 
 #container #create [type="text"] {
@@ -57,25 +65,26 @@
 }
 
 #container #conference #remote-container video {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
+}
+
+#container #conference #remote-container {
+    border-top: 20px solid #e1e1e1;
 }
 
 #container #conference #local-container video {
     bottom: 0;
     position: absolute;
     right: 0;
+    z-index: 2;
 }
 
 #container #conference #local-container video {
-    width: 120px;
-    border-radius: 15px;
+    border-radius: 20px;
     /* position: absolute; */
     margin-right: 10px;
     margin-bottom: 10px;
+    width: 100px;
 }
 
 
