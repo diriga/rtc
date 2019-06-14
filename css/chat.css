@@ -45,7 +45,14 @@ img {
     left: 44%;
 }
 
-#divLoading {
+#divLoadingMobile {
+    position: absolute;
+    margin-top: 140px;
+    left: 48%;
+    display: none;
+}
+
+#divLoadingWeb {
     position: absolute;
     margin-top: 140px;
     left: 35%;
@@ -63,9 +70,12 @@ img {
 }
 
 .inbox_msg {
-    /* border: 1px solid #c4c4c4; */
     clear: both;
     overflow: hidden;
+    bottom: 0;
+    position: absolute;
+    top: 0;
+    width: 90%;
 }
 
 .top_spac {
@@ -197,7 +207,7 @@ img {
 
 .mesgs {
     float: left;
-    border-top: 1px solid lightgrey;
+    /* border-top: 1px solid lightgrey; */
     width: 60%;
     padding: 5px 0px 0 0px;
 }

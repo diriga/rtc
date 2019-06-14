@@ -58,15 +58,19 @@ $(function() {
             activeConversation.on('contactJoined', function(contact) {
                     console.log("Contact that has joined :", contact);
                     renderUserList();
-                    if (document.getElementById('divLoading'))
-                        document.getElementById('divLoading').style.display = 'none';
+                    if (document.getElementById('divLoadingMobile'))
+                        document.getElementById('divLoadingMobile').style.display = 'none';
+                    if (document.getElementById('divLoadingWeb'))
+                        document.getElementById('divLoadingWeb').style.display = 'none';
 
                 })
                 .on('contactLeft', function(contact) {
                     console.log("Contact that has left :", contact);
                     renderUserList();
-                    if (document.getElementById('divLoading'))
-                        document.getElementById('divLoading').style.display = 'none';
+                    if (document.getElementById('divLoadingMobile'))
+                        document.getElementById('divLoadingMobile').style.display = 'none';
+                    if (document.getElementById('divLoadingWeb'))
+                        document.getElementById('divLoadingWeb').style.display = 'none';
 
                 });
 
@@ -100,7 +104,7 @@ $(function() {
     // CREATE USER AGENT
     //==============================
     var ua = new apiRTC.UserAgent({
-        uri: 'apzkey:myDemoApiKey'
+        uri: 'apzkey:62178345da65852feb83e1a881e6fd50'
     });
 
     //==============================
@@ -144,8 +148,10 @@ $(function() {
     //==============================
 
     $(document).ready(function() {
-        if (document.getElementById('divLoading'))
-            document.getElementById('divLoading').style.display = 'block';
+        if (document.getElementById('divLoadingMobile'))
+            document.getElementById('divLoadingMobile').style.display = 'block';
+        if (document.getElementById('divLoadingWeb'))
+            document.getElementById('divLoadingWeb').style.display = 'block';
     });
 
     $('#send-message').on('click', function() {
@@ -157,8 +163,6 @@ $(function() {
             document.getElementById('divChatMobile').style.display = 'none';
         if (document.getElementById('divChatWeb'))
             document.getElementById('divChatWeb').style.display = 'none';
-
-
     });
 
     $('#typing-area').keypress(function(e) {

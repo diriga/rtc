@@ -13,14 +13,14 @@ $(function() {
         // 1/ CREATE USER AGENT
         //==============================
         var ua = new apiRTC.UserAgent({
-            uri: 'apzkey:myDemoApiKey'
+            uri: 'apzkey:62178345da65852feb83e1a881e6fd50'
         });
 
         //==============================
         // 2/ REGISTER
         //==============================
         ua.register({
-            cloudUrl: cloudUrl
+            cloudUrl: cloudUrl,
         }).then(function(session) {
             // Save session
             connectedSession = session;
@@ -37,6 +37,7 @@ $(function() {
             //==============================
             // 3/ CREATE CONVERSATION
             //==============================
+            connectedConversation.destroy();
             connectedConversation = connectedSession.getConversation(name);
 
             //==========================================================
@@ -147,7 +148,6 @@ $(function() {
         console.log("ready!");
 
         var roomId = (new URL(location.href)).searchParams.get('roomId');
-
         // Get conference name
         var conferenceName = roomId;
         console.log(conferenceName);
