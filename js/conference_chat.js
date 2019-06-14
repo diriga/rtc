@@ -179,6 +179,7 @@ $(function() {
     });
 
     $('#btnStopConference').click(function(e) {
+        window.open('location', '_self', '');
         window.close();
     });
 
