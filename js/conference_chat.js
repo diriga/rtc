@@ -2,12 +2,14 @@ $(function() {
     'use strict';
 
     apiRTC.setLogLevel(10);
+    var cloudUrl = 'https://cloud.apizee.com';
+    var connectedSession = null;
+    var connectedConversation = null;
+    // var activeConversation = null;
+    var localStream = null;
+
 
     function joinConference(name) {
-        var cloudUrl = 'https://cloud.apizee.com';
-        var connectedSession = null;
-        var connectedConversation = null;
-        var localStream = null;
 
         //==============================
         // 1/ CREATE USER AGENT
@@ -24,8 +26,6 @@ $(function() {
         }).then(function(session) {
             // Save session
             connectedSession = session;
-            var chatId = (new URL(location.href)).searchParams.get('chatId');
-            joinConversation(chatId);
 
             connectedSession
                 .on("contactListUpdate", function(updatedContacts) { //display a list of connected users
@@ -42,7 +42,8 @@ $(function() {
 
             //connectedConversation.destroy();
             connectedConversation = connectedSession.getConversation(name);
-
+            var chatId = (new URL(location.href)).searchParams.get('chatId');
+            joinConversation(chatId);
             //==========================================================
             // 4/ ADD EVENT LISTENER : WHEN NEW STREAM IS AVAILABLE IN CONVERSATION
             //==========================================================
@@ -134,6 +135,7 @@ $(function() {
                             // 7/ PUBLISH OWN STREAM
                             //==============================
                             connectedConversation.publish(localStream, null);
+
                         }).catch(function(err) {
                             console.error('Conversation join error', err);
                         });
@@ -167,6 +169,8 @@ $(function() {
             document.getElementById('divLoadingMobile').style.display = 'block';
         if (document.getElementById('divLoadingWeb'))
             document.getElementById('divLoadingWeb').style.display = 'block';
+
+        $('#badgeAviso').hide();
         //CHAT
 
     });
@@ -176,10 +180,15 @@ $(function() {
     });
 
     $('#btnOpenChat').click(function(e) {
-        if (document.getElementById('divChatMobile'))
+        if (document.getElementById('divChatMobile')) {
             document.getElementById('divChatMobile').style.display = 'block';
-        if (document.getElementById('divChatWeb'))
+        }
+
+        if (document.getElementById('divChatWeb')) {
             document.getElementById('divChatWeb').style.display = 'block';
+        }
+        $('#badgeAviso').hide();
+
 
     });
 
@@ -202,18 +211,18 @@ $(function() {
             $('#divMensajes').scrollTop($('#divMensajes').height())
 
             //Actually send message to active contact
-            activeConversation.sendMessage(message);
+            connectedConversation.sendMessage(message);
         }
     }
 
     function joinConversation(name) {
         if (name !== '') {
-            activeConversation = connectedSession.getConversation(name);
+            // activeConversation = connectedSession.getConversation(name);
 
             //Listen to incoming messages from conversation
-            activeConversation.on('message', function(e) {
+            connectedConversation.on('message', function(e) {
                 var chat = '<div class="incoming_msg pb-2">' +
-                    '<div class="bg-info incoming_msg_img rounded-left text-white" style="padding: 7px;">C</div>' +
+                    '<div class="bg-info incoming_msg_img rounded-left text-white" style="7px 7px 7px 3px">C</div>' +
                     '<div class="received_msg">' +
                     '<div class="received_withd_msg">' +
                     '<p>' + e.content + '</p>' +
@@ -222,14 +231,26 @@ $(function() {
                     '</div>';
 
                 $('#message-list').append('<li>' + chat + '</li>');
-                $('#divMensajes').scrollTop($('#divMensajes').height())
-                    // $('#message-list').append('<li><b>' + e.sender.getId() + '</b> : ' + e.content + '</li>');
+                $('#divMensajes').scrollTop($('#divMensajes').height());
+                // $('#message-list').append('<li><b>' + e.sender.getId() + '</b> : ' + e.content + '</li>');
+
+                if (document.getElementById('divChatMobile')) {
+                    if ($('#divChatMobile').css('display') == 'none') {
+                        $('#badgeAviso').show();
+                    }
+                }
+
+                if (document.getElementById('divChatWeb')) {
+                    if ($('#divChatWeb').css('display') == 'none') {
+                        $('#badgeAviso').show();
+                    }
+                }
 
 
 
             });
             //Listen for any participants entering or leaving the conversation
-            activeConversation.on('contactJoined', function(contact) {
+            connectedConversation.on('contactJoined', function(contact) {
                     console.log("Contact that has joined :", contact);
                     renderUserList();
                     if (document.getElementById('divLoadingMobile'))
@@ -248,24 +269,24 @@ $(function() {
 
                 });
 
-            activeConversation.join()
-                .then(function() {
-                    //Conversation was successfully joined
-                    document.getElementById('active-conversation-name').innerHTML = activeConversation.getName();
-                    showChatBox();
-                    renderUserList();
-                    // if (document.getElementById('divLoading'))
-                    //     document.getElementById('divLoading').style.display = 'none';
+            // activeConversation.join()
+            //     .then(function() {
+            //         //Conversation was successfully joined
+            //         document.getElementById('active-conversation-name').innerHTML = activeConversation.getName();
+            //         showChatBox();
+            //         renderUserList();
+            //         // if (document.getElementById('divLoading'))
+            //         //     document.getElementById('divLoading').style.display = 'none';
 
-                })
-                .catch(function(err) {
-                    //Woops! User agent was not able to join conversation
-                });
+            //     })
+            //     .catch(function(err) {
+            //         //Woops! User agent was not able to join conversation
+            //     });
         }
     }
 
     function renderUserList() {
-        var contacts = activeConversation.getContacts();
+        var contacts = connectedConversation.getContacts();
         $('#active-users').empty();
         $('#active-users').append('<li><b>Active users</b></li>');
         var keys = Object.keys(contacts);
