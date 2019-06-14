@@ -179,7 +179,7 @@ $(function() {
     });
 
     $('#btnStopConference').click(function(e) {
-        open('', '_self').close();
+        window.close();
     });
 
     $('#btnOpenChat').click(function(e) {
