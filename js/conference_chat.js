@@ -171,6 +171,9 @@ $(function() {
             document.getElementById('divLoadingWeb').style.display = 'block';
 
         $('#badgeAviso').hide();
+        $('#typing-area').attr('disabled', 'disabled');
+        $('#send-message').attr('disabled', 'disabled');
+
         //CHAT
 
     });
@@ -195,6 +198,9 @@ $(function() {
 
     /// CHAT
     //Wrapper to send a message to everyone in the conversation and display sent message in UI
+
+
+
     function sendMessageToActiveConversation(message) {
         if (message !== '') {
             $('#typing-area').val('');
@@ -258,6 +264,9 @@ $(function() {
                     if (document.getElementById('divLoadingWeb'))
                         document.getElementById('divLoadingWeb').style.display = 'none';
 
+                    $('#typing-area').removeAttr('disabled');
+                    $('#send-message').removeAttr('disabled');
+
                 })
                 .on('contactLeft', function(contact) {
                     console.log("Contact that has left :", contact);
@@ -307,6 +316,11 @@ $(function() {
             sendMessageToActiveConversation($('#typing-area').val().toString());
             return false;
         }
+    });
+
+
+    $('#send-message').on('click', function() {
+        sendMessageToActiveConversation($('#typing-area').val().toString());
     });
 
     ///////CHAT
