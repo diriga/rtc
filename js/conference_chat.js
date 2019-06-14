@@ -228,7 +228,7 @@ $(function() {
             //Listen to incoming messages from conversation
             connectedConversation.on('message', function(e) {
                 var chat = '<div class="incoming_msg pb-2">' +
-                    '<div class="bg-info incoming_msg_img rounded-left text-white" style="7px 7px 7px 5px">C</div>' +
+                    '<div class="bg-info incoming_msg_img rounded-left text-white" style="padding: 7px 7px 7px 5px">C</div>' +
                     '<div class="received_msg">' +
                     '<div class="received_withd_msg">' +
                     '<p>' + e.content + '</p>' +
