@@ -25,6 +25,7 @@ $(function() {
                 '</div>';
 
             $('#message-list').append('<li>' + chat + '</li>');
+            $('#divMensajes').scrollTop($('#divMensajes').height())
 
             //Actually send message to active contact
             activeConversation.sendMessage(message);
@@ -38,7 +39,7 @@ $(function() {
             //Listen to incoming messages from conversation
             activeConversation.on('message', function(e) {
                 var chat = '<div class="incoming_msg pb-2">' +
-                    '<div class="bg-info incoming_msg_img rounded-left text-white" style="padding: 7px;">CHAT</div>' +
+                    '<div class="bg-info incoming_msg_img rounded-left text-white" style="padding: 7px;">C</div>' +
                     '<div class="received_msg">' +
                     '<div class="received_withd_msg">' +
                     '<p>' + e.content + '</p>' +
@@ -47,7 +48,8 @@ $(function() {
                     '</div>';
 
                 $('#message-list').append('<li>' + chat + '</li>');
-                // $('#message-list').append('<li><b>' + e.sender.getId() + '</b> : ' + e.content + '</li>');
+                $('#divMensajes').scrollTop($('#divMensajes').height())
+                    // $('#message-list').append('<li><b>' + e.sender.getId() + '</b> : ' + e.content + '</li>');
 
 
 
@@ -56,12 +58,16 @@ $(function() {
             activeConversation.on('contactJoined', function(contact) {
                     console.log("Contact that has joined :", contact);
                     renderUserList();
-                    document.getElementById('loading').style.display = 'none';
+                    if (document.getElementById('divLoading'))
+                        document.getElementById('divLoading').style.display = 'none';
+
                 })
                 .on('contactLeft', function(contact) {
                     console.log("Contact that has left :", contact);
                     renderUserList();
-                    document.getElementById('loading').style.display = 'none';
+                    if (document.getElementById('divLoading'))
+                        document.getElementById('divLoading').style.display = 'none';
+
                 });
 
             activeConversation.join()
@@ -70,7 +76,9 @@ $(function() {
                     document.getElementById('active-conversation-name').innerHTML = activeConversation.getName();
                     showChatBox();
                     renderUserList();
-                    document.getElementById('loading').style.display = 'none';
+                    // if (document.getElementById('divLoading'))
+                    //     document.getElementById('divLoading').style.display = 'none';
+
                 })
                 .catch(function(err) {
                     //Woops! User agent was not able to join conversation
@@ -136,12 +144,23 @@ $(function() {
     //==============================
 
     $(document).ready(function() {
-        document.getElementById('loading').style.display = 'block';
+        if (document.getElementById('divLoading'))
+            document.getElementById('divLoading').style.display = 'block';
     });
 
     $('#send-message').on('click', function() {
         sendMessageToActiveConversation($('#typing-area').val().toString());
     });
+
+    $('#btnCerrarChat').on('click', function() {
+        if (document.getElementById('divChatMobile'))
+            document.getElementById('divChatMobile').style.display = 'none';
+        if (document.getElementById('divChatWeb'))
+            document.getElementById('divChatWeb').style.display = 'none';
+
+
+    });
+
     $('#typing-area').keypress(function(e) {
         if (e.which == 13) {
             sendMessageToActiveConversation($('#typing-area').val().toString());

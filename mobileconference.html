@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Styles -->
     <!-- <link href="main/css/main.css" rel="stylesheet"> -->
+    <link href="css/chat.css" rel="stylesheet">
     <link href="css/mobileconference.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -28,9 +29,35 @@
         <button id="btnOpenChat" class="btn btn-lg btn-outline-info rounded-circle"><i class="fa fa-comment"></i></button>
     </div>
 
+    <div id="divChatMobile">
+        <div class="container">
+            <div id="divLoading">
+                <i class="fa fa-circle-o-notch fa-spin"></i><br>
+                <small class="text-muted">Sincronizando chat</small>
+            </div>
+            <div class="messaging">
+                <div class="inbox_msg">
+                    <button id="btnCerrarChat" class="btn btn-block btn-info m-1">Cerrar chat</button>
+                    <div class="mesgs" style="width: 100%;">
+                        <div class="msg_history" id="divMensajes">
+                            <ul id="message-list" style="list-style: none;" class="pl-0"></ul>
+                        </div>
+                        <div id="chat-footer" class="type_msg">
+                            <div class="input_msg_write">
+                                <input autofocus id="typing-area" type="text" class="write_msg" placeholder="Escribe un mensaje" />
+                                <button id="send-message" class="msg_send_btn" type="button"><i class="fa fa-play" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cloud.apizee.com/apiRTC/apiRTC-latest.min.js"></script>
+    <script type="text/javascript" src="js/chat.js"></script>
     <script type="text/javascript" src="js/conference.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

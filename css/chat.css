@@ -15,14 +15,51 @@ img {
     border-right: 1px solid #c4c4c4;
 }
 
-#loading {
+#divChatWeb {
     position: absolute;
+    bottom: 0;
+    background: white;
+    width: 35%;
+    top: 5%;
     z-index: 4;
-    font-size: 40px;
+    display: none;
+}
+
+#divChatMobile {
+    position: absolute;
+    bottom: 0;
+    background: white;
+    width: 80%;
+    top: 2%;
+    z-index: 4;
+    display: none;
+}
+
+#loadingchatMobile {
+    position: absolute;
+    z-index: 5;
+    font-size: 15px;
     color: darkgray;
     margin-top: 140px;
     display: none;
-    left: 49%;
+    left: 44%;
+}
+
+#divLoading {
+    position: absolute;
+    margin-top: 140px;
+    left: 35%;
+    display: none;
+}
+
+#loadingchatWeb {
+    z-index: 5;
+    font-size: 15px;
+    color: darkgray;
+    /* margin-top: 140px; */
+    /* display: none; */
+    /* left: 49%; */
+    margin-left: 45px;
 }
 
 .inbox_msg {
@@ -155,13 +192,14 @@ img {
 }
 
 .received_withd_msg {
-    width: 57%;
+    width: 80%;
 }
 
 .mesgs {
     float: left;
-    padding: 30px 15px 0 25px;
+    border-top: 1px solid lightgrey;
     width: 60%;
+    padding: 5px 0px 0 0px;
 }
 
 .sent_msg p {
@@ -191,6 +229,7 @@ img {
     font-size: 15px;
     min-height: 48px;
     width: 100%;
+    padding-right: 40px;
 }
 
 .type_msg {

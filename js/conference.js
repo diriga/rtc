@@ -165,7 +165,10 @@ $(function() {
     });
 
     $('#btnOpenChat').click(function(e) {
-        location.href = 'chat.html?chatId=' + encodeURI("metrikchat123");
+        if (document.getElementById('divChatMobile'))
+            document.getElementById('divChatMobile').style.display = 'block';
+        if (document.getElementById('divChatWeb'))
+            document.getElementById('divChatWeb').style.display = 'block';
 
     });
 
