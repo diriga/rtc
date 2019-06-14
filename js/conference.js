@@ -38,8 +38,7 @@ $(function() {
             // 3/ CREATE CONVERSATION
             //==============================
 
-            if (connectedConversation)
-                connectedConversation.destroy();
+            connectedConversation.destroy();
             connectedConversation = connectedSession.getConversation(name);
 
             //==========================================================
