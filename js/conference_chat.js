@@ -252,8 +252,6 @@ $(function() {
                     }
                 }
 
-
-
             });
             //Listen for any participants entering or leaving the conversation
             connectedConversation.on('contactJoined', function(contact) {
