@@ -208,7 +208,7 @@ $(function() {
                 '</div>';
 
             $('#message-list').append('<li>' + chat + '</li>');
-            $('#divMensajes').scrollTop($('#divMensajes').height())
+            $('#message-list').scrollTop($('#message-list').height())
 
             //Actually send message to active contact
             connectedConversation.sendMessage(message);
@@ -231,7 +231,7 @@ $(function() {
                     '</div>';
 
                 $('#message-list').append('<li>' + chat + '</li>');
-                $('#divMensajes').scrollTop($('#divMensajes').height());
+                $('#message-list').scrollTop($('#message-list').height());
                 // $('#message-list').append('<li><b>' + e.sender.getId() + '</b> : ' + e.content + '</li>');
 
                 if (document.getElementById('divChatMobile')) {

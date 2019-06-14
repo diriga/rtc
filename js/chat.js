@@ -122,7 +122,7 @@ $(function() {
         joinConversation(chatId);
 
     }).catch(function(error) {
-        // error
+        // errorsend-message
         console.error('User agent registering failed', error);
     });
 
@@ -155,6 +155,7 @@ $(function() {
     });
 
     $('#send-message').on('click', function() {
+        debugger;
         sendMessageToActiveConversation($('#typing-area').val().toString());
     });
 
