@@ -153,6 +153,14 @@ $(function() {
         console.log("ready!");
 
         var roomId = (new URL(location.href)).searchParams.get('roomId');
+        var salaGif = (new URL(location.href)).searchParams.get('sala');
+
+        if (salaGif == 'paramedic') {
+            $("#loading").attr('src', 'assets/salaparamedic.gif')
+        } else if (salaGif == 'shaman') {
+            $("#loading").attr('src', 'assets/salashaman.gif')
+        }
+
         // Get conference name
         var conferenceName = roomId;
         console.log(conferenceName);

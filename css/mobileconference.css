@@ -69,13 +69,7 @@
 }
 
 #loading {
-    position: absolute;
-    z-index: 4;
-    font-size: 40px;
-    color: white;
-    margin-top: 140px;
-    display: none;
-    left: 46%;
+    margin-top: 22px;
 }
 
 #container #conference #remote-container {
