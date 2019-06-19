@@ -151,7 +151,7 @@ $(function() {
     //==============================
     $(document).ready(function() {
         console.log("ready!");
-
+        getDoctor();
         var roomId = (new URL(location.href)).searchParams.get('roomId');
         var salaGif = (new URL(location.href)).searchParams.get('sala');
 
@@ -280,8 +280,11 @@ $(function() {
             connectedConversation.on('contactJoined', function(contact) {
                     console.log("Contact that has joined :", contact);
                     renderUserList();
-                    if (document.getElementById('divLoadingMobile'))
+                    if (document.getElementById('divLoadingMobile')) {
                         document.getElementById('divLoadingMobile').style.display = 'none';
+                        getDoctor();
+                    }
+
                     if (document.getElementById('divLoadingWeb'))
                         document.getElementById('divLoadingWeb').style.display = 'none';
 
@@ -313,6 +316,25 @@ $(function() {
             //         //Woops! User agent was not able to join conversation
             //     });
         }
+    }
+
+
+    function getDoctor() {
+        var sConferenceId = (new URL(location.href)).searchParams.get('roomId').split('room')[1];
+
+        $.ajax({
+            url: "http://paramedicapps.com.ar:9876/Login/GetDoctorViewModelFromConference/" + sConferenceId,
+            success: function(respuesta) {
+                $("#divNombreDoctor").show();
+                $("#spanDoctor").text(" " + respuesta.Name + " (" + respuesta.Enrollment + ") ");
+                console.log(respuesta);
+            },
+            error: function() {
+                $("#divNombreDoctor").show();
+                $("#spanDoctor").text(" Sin datos del doctor");
+                console.log("No se ha podido obtener la información");
+            }
+        });
     }
 
     function renderUserList() {
