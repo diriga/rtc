@@ -155,10 +155,19 @@ $(function() {
         var roomId = (new URL(location.href)).searchParams.get('roomId');
         var salaGif = (new URL(location.href)).searchParams.get('sala');
 
-        if (salaGif == 'paramedic') {
-            $("#loading").attr('src', 'assets/salaparamedic.gif')
-        } else if (salaGif == 'shaman') {
-            $("#loading").attr('src', 'assets/salashaman.gif')
+        switch (salaGif) {
+            case 'shaman':
+                $("#loading").attr('src', 'assets/salashaman.gif')
+                break;
+            case '4678913118':
+                $("#loading").attr('src', 'assets/salaparamedic.gif')
+                break;
+                // case '1479124025': //EMERGENCIAS MEDICAS
+                //     $("#loading").attr('src', 'assets/salaparamedic.gif')
+                //     break;
+            default:
+                $("#loading").attr('src', 'assets/salashaman.gif')
+                break;
         }
 
         // Get conference name
@@ -187,8 +196,17 @@ $(function() {
     });
 
     $('#btnStopConference').click(function(e) {
-        window.open('location', '_self', '');
+
+
+        if (document.getElementById('divLoadingMobile'))
+            window.open('location', '_self', '');
         window.close();
+        if (document.getElementById('divLoadingWeb')) {
+            window.open('videoconferencefinish.html', '');
+        }
+
+
+
     });
 
     $('#btnOpenChat').click(function(e) {
