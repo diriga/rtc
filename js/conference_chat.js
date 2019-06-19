@@ -196,17 +196,13 @@ $(function() {
     });
 
     $('#btnStopConference').click(function(e) {
-
-
-        if (document.getElementById('divLoadingMobile'))
+        if (document.getElementById('divLoadingMobile')) {
             window.open('location', '_self', '');
-        window.close();
-        if (document.getElementById('divLoadingWeb')) {
-            window.open('videoconferencefinish.html', '');
+            window.close();
         }
-
-
-
+        if (document.getElementById('divLoadingWeb')) {
+            location.href = "videoconferencefinish.html";
+        }
     });
 
     $('#btnOpenChat').click(function(e) {
