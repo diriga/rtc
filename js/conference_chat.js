@@ -150,8 +150,6 @@ $(function() {
     // CREATE CONFERENCE
     //==============================
     $(document).ready(function() {
-        console.log("ready!");
-        getDoctor();
         var roomId = (new URL(location.href)).searchParams.get('roomId');
         var salaGif = (new URL(location.href)).searchParams.get('sala');
 
@@ -330,7 +328,7 @@ $(function() {
                 console.log(respuesta);
             },
             error: function() {
-                $("#divNombreDoctor").show();
+                $("#divNombreDoctor").hide();
                 $("#spanDoctor").text(" Sin datos del doctor");
                 console.log("No se ha podido obtener la información");
             }
