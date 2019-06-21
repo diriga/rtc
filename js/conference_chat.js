@@ -94,10 +94,13 @@ $(function() {
             //==============================
             // 5/ CREATE LOCAL STREAM
             //==============================
+            const videoConstraints = {
+                facingMode: { exact: "user" }
+            };
             var createStreamOptions = {};
             createStreamOptions.constraints = {
                 audio: true,
-                video: true
+                video: videoConstraints,
             };
 
             ua.createStream(createStreamOptions)
@@ -109,6 +112,7 @@ $(function() {
                     localStream = stream;
                     stream.removeFromDiv('local-container', 'local-media');
                     stream.addInDiv('local-container', 'local-media', {}, true);
+
                     /*
                                         // Get media container
                                         var container = document.getElementById('local-container');
