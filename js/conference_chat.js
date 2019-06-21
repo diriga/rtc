@@ -100,7 +100,7 @@ $(function() {
             var createStreamOptions = {};
             createStreamOptions.constraints = {
                 audio: true,
-                video: true
+                video: videoConstraints
             };
 
             ua.createStream(createStreamOptions)
