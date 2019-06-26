@@ -199,8 +199,7 @@ $(function() {
 
     $('#btnStopConference').click(function(e) {
         if (document.getElementById('divLoadingMobile')) {
-            window.open('location', '_self', '');
-            window.close();
+            location.href = "videoconferencemobilefinish.html";
         }
         if (document.getElementById('divLoadingWeb')) {
             location.href = "videoconferencefinish.html";
@@ -325,7 +324,8 @@ $(function() {
         var sConferenceId = (new URL(location.href)).searchParams.get('roomId').split('room')[1];
 
         $.ajax({
-            url: "http://paramedicapps.com.ar:9876/Login/GetDoctorViewModelFromConference/" + sConferenceId,
+            //url: "http://paramedicapps.com.ar:9876/Login/GetDoctorViewModelFromConference/" + sConferenceId,
+            url: "https://telmed.paramedicapps.com.ar/apitest/Login/GetDoctorViewModelFromConference/" + sConferenceId,
             success: function(respuesta) {
                 $("#divNombreDoctor").show();
                 $("#spanDoctor").text(" " + respuesta.Name + " (" + respuesta.Enrollment + ") ");
