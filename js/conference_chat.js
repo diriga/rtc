@@ -94,13 +94,11 @@ $(function() {
             //==============================
             // 5/ CREATE LOCAL STREAM
             //==============================
-            const videoConstraints = {
-                facingMode: { exact: "user" }
-            };
+
             var createStreamOptions = {};
             createStreamOptions.constraints = {
                 audio: true,
-                video: videoConstraints
+                video: true
             };
 
             ua.createStream(createStreamOptions)
