@@ -15,7 +15,7 @@ $(function() {
         // 1/ CREATE USER AGENT
         //==============================
         var ua = new apiRTC.UserAgent({
-            uri: 'apzkey:62178345da65852feb83e1a881e6fd50'
+            uri: 'apzkey:d6ca15327d3a29d40d8c7b1c7af9214d'
         });
 
         //==============================
@@ -341,8 +341,8 @@ $(function() {
         var sConferenceId = (new URL(location.href)).searchParams.get('roomId').split('room')[1];
 
         $.ajax({
-            //url: "http://paramedicapps.com.ar:9876/Login/GetDoctorViewModelFromConference/" + sConferenceId,
-            url: "https://telmed.paramedicapps.com.ar/apitest/Login/GetDoctorViewModelFromConference/" + sConferenceId,
+            url: "http://paramedicapps.com.ar:9876/Login/GetDoctorViewModelFromConference/" + sConferenceId,
+            //url: "https://telmed.paramedicapps.com.ar/api/Login/GetDoctorViewModelFromConference/" + sConferenceId,
             success: function(respuesta) {
                 $("#divNombreDoctor").show();
                 $("#spanDoctor").text(" " + respuesta.Name + " (" + respuesta.Enrollment + ") ");
