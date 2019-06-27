@@ -341,8 +341,8 @@ $(function() {
         var sConferenceId = (new URL(location.href)).searchParams.get('roomId').split('room')[1];
 
         $.ajax({
-            url: "http://paramedicapps.com.ar:9876/Login/GetDoctorViewModelFromConference/" + sConferenceId,
-            //url: "https://telmed.paramedicapps.com.ar/api/Login/GetDoctorViewModelFromConference/" + sConferenceId,
+            //url: "http://paramedicapps.com.ar:9876/Login/GetDoctorViewModelFromConference/" + sConferenceId,
+            url: "https://telmed.paramedicapps.com.ar/api/Login/GetDoctorViewModelFromConference/" + sConferenceId,
             success: function(respuesta) {
                 $("#divNombreDoctor").show();
                 $("#spanDoctor").text(" " + respuesta.Name + " (" + respuesta.Enrollment + ") ");
