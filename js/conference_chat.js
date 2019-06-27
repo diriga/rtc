@@ -151,53 +151,72 @@ $(function() {
     //==============================
     // CREATE CONFERENCE
     //==============================
+
+
+
     $(document).ready(function() {
         var roomId = (new URL(location.href)).searchParams.get('roomId');
         var salaGif = (new URL(location.href)).searchParams.get('sala');
 
-        switch (salaGif) {
-            case 'shaman':
-                $("#loading").attr('src', 'assets/salashaman.gif')
-                break;
-            case '4678913118':
-                $("#loading").attr('src', 'assets/salaparamedic.gif')
-                break;
-                // case '1479124025': //EMERGENCIAS MEDICAS
-                //     $("#loading").attr('src', 'assets/salaparamedic.gif')
-                //     break;
-            default:
-                $("#loading").attr('src', 'assets/salashaman.gif')
-                break;
+        var roomHist = localStorage.getItem('roomId');
+
+        if (roomHist == roomId) {
+            $("#containerFinish").show();
+        } else {
+            switch (salaGif) {
+                case 'shaman':
+                    $("#loading").attr('src', 'assets/salashaman.gif')
+                    break;
+                case '4678913118':
+                    $("#loading").attr('src', 'assets/salaparamedic.gif')
+                    break;
+                    // case '1479124025': //EMERGENCIAS MEDICAS
+                    //     $("#loading").attr('src', 'assets/salaparamedic.gif')
+                    //     break;
+                default:
+                    $("#loading").attr('src', 'assets/salashaman.gif')
+                    break;
+            }
+
+            // Get conference name
+            var conferenceName = roomId;
+            console.log(conferenceName);
+            //document.getElementById('create').style.display = 'none';
+            document.getElementById('conference').style.display = 'block';
+            document.getElementById('loading').style.display = 'block';
+            //document.getElementById('title').innerHTML = 'Sala en espera...';
+
+            // Join conference
+            joinConference(conferenceName);
+
+            //CHAT
+            if (document.getElementById('divLoadingMobile'))
+                document.getElementById('divLoadingMobile').style.display = 'block';
+            if (document.getElementById('divLoadingWeb'))
+                document.getElementById('divLoadingWeb').style.display = 'block';
+
+            $('#badgeAviso').hide();
+            $('#typing-area').attr('disabled', 'disabled');
+            $('#send-message').attr('disabled', 'disabled');
+
+            //CHAT
+
         }
-
-        // Get conference name
-        var conferenceName = roomId;
-        console.log(conferenceName);
-        //document.getElementById('create').style.display = 'none';
-        document.getElementById('conference').style.display = 'block';
-        document.getElementById('loading').style.display = 'block';
-        //document.getElementById('title').innerHTML = 'Sala en espera...';
-
-        // Join conference
-        joinConference(conferenceName);
-
-        //CHAT
-        if (document.getElementById('divLoadingMobile'))
-            document.getElementById('divLoadingMobile').style.display = 'block';
-        if (document.getElementById('divLoadingWeb'))
-            document.getElementById('divLoadingWeb').style.display = 'block';
-
-        $('#badgeAviso').hide();
-        $('#typing-area').attr('disabled', 'disabled');
-        $('#send-message').attr('disabled', 'disabled');
-
-        //CHAT
 
     });
 
     $('#btnStopConference').click(function(e) {
         if (document.getElementById('divLoadingMobile')) {
-            location.href = "videoconferencemobilefinish.html";
+            var roomId = (new URL(location.href)).searchParams.get('roomId');
+            localStorage.setItem('roomId', roomId);
+            connectedConversation.cancelJoin();
+            connectedConversation.stopRecording();
+            connectedConversation.destroy();
+            connectedConversation = null;
+            localStream = null;
+            $("#containerFinish").show();
+            //alert(localStorage.getItem('roomId'));
+            //location.href = "videoconferencemobilefinish.html";
         }
         if (document.getElementById('divLoadingWeb')) {
             location.href = "videoconferencefinish.html";
