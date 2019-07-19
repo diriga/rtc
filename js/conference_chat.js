@@ -167,17 +167,14 @@ $(function () {
                 case 'shaman':
                     $("#loading").attr('src', 'assets/salashaman.gif')
                     break;
-                case '5688923118':
-                    $("#loading").attr('src', 'assets/emerger.gif')
-                    break;
-                case '4678913118':
-                    $("#loading").attr('src', 'assets/salaparamedic.gif')
-                    break;
-                // case '1479124025': //EMERGENCIAS MEDICAS
+                // case '5688923118':
+                //     $("#loading").attr('src', 'assets/emerger.gif')
+                //     break;
+                // case '4678913118':
                 //     $("#loading").attr('src', 'assets/salaparamedic.gif')
                 //     break;
                 default:
-                    $("#loading").attr('src', 'assets/salashaman.gif')
+                    $("#loading").attr('src', 'assets/' + salaGif + '.gif')
                     break;
             }
 
