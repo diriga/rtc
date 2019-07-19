@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
     'use strict';
 
     apiRTC.setLogLevel(10);
@@ -23,12 +23,12 @@ $(function() {
         //==============================
         ua.register({
             cloudUrl: cloudUrl,
-        }).then(function(session) {
+        }).then(function (session) {
             // Save session
             connectedSession = session;
 
             connectedSession
-                .on("contactListUpdate", function(updatedContacts) { //display a list of connected users
+                .on("contactListUpdate", function (updatedContacts) { //display a list of connected users
                     console.log("MAIN - contactListUpdate", updatedContacts);
                     if (connectedConversation !== null) {
                         let contactList = connectedConversation.getContacts();
@@ -47,7 +47,7 @@ $(function() {
             //==========================================================
             // 4/ ADD EVENT LISTENER : WHEN NEW STREAM IS AVAILABLE IN CONVERSATION
             //==========================================================
-            connectedConversation.on('streamListChanged', function(streamInfo) {
+            connectedConversation.on('streamListChanged', function (streamInfo) {
 
                 console.log("streamListChanged :", streamInfo);
 
@@ -55,9 +55,9 @@ $(function() {
                     if (streamInfo.isRemote === true) {
 
                         connectedConversation.subscribeToMedia(streamInfo.streamId)
-                            .then(function(stream) {
+                            .then(function (stream) {
                                 console.log('subscribeToMedia success');
-                            }).catch(function(err) {
+                            }).catch(function (err) {
                                 console.error('subscribeToMedia error', err);
                             });
                     }
@@ -66,7 +66,7 @@ $(function() {
             //=====================================================
             // 4 BIS/ ADD EVENT LISTENER : WHEN STREAM WAS REMOVED FROM THE CONVERSATION
             //=====================================================
-            connectedConversation.on('streamAdded', function(stream) {
+            connectedConversation.on('streamAdded', function (stream) {
                 stream.addInDiv('remote-container', 'remote-media-' + stream.streamId, {}, false);
                 document.getElementById('loading').style.display = 'none';
                 /*
@@ -83,7 +83,7 @@ $(function() {
                                 // Attach stream
                                 stream.attachToElement(mediaElement);
                 */
-            }).on('streamRemoved', function(stream) {
+            }).on('streamRemoved', function (stream) {
                 stream.removeFromDiv('remote-container', 'remote-media-' + stream.streamId);
                 //document.getElementById('aviso').style.display = 'block';
                 /*
@@ -102,7 +102,7 @@ $(function() {
             };
 
             ua.createStream(createStreamOptions)
-                .then(function(stream) {
+                .then(function (stream) {
 
                     console.log('createStream :', stream);
 
@@ -132,17 +132,17 @@ $(function() {
                     // 6/ JOIN CONVERSATION
                     //==============================
                     connectedConversation.join()
-                        .then(function(response) {
+                        .then(function (response) {
                             //==============================
                             // 7/ PUBLISH OWN STREAM
                             //==============================
                             connectedConversation.publish(localStream, null);
 
-                        }).catch(function(err) {
+                        }).catch(function (err) {
                             console.error('Conversation join error', err);
                         });
 
-                }).catch(function(err) {
+                }).catch(function (err) {
                     console.error('create stream error', err);
                 });
         });
@@ -154,7 +154,7 @@ $(function() {
 
 
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         var roomId = (new URL(location.href)).searchParams.get('roomId');
         var salaGif = (new URL(location.href)).searchParams.get('sala');
 
@@ -167,12 +167,15 @@ $(function() {
                 case 'shaman':
                     $("#loading").attr('src', 'assets/salashaman.gif')
                     break;
+                case '5688923118':
+                    $("#loading").attr('src', 'assets/emerger.gif')
+                    break;
                 case '4678913118':
                     $("#loading").attr('src', 'assets/salaparamedic.gif')
                     break;
-                    // case '1479124025': //EMERGENCIAS MEDICAS
-                    //     $("#loading").attr('src', 'assets/salaparamedic.gif')
-                    //     break;
+                // case '1479124025': //EMERGENCIAS MEDICAS
+                //     $("#loading").attr('src', 'assets/salaparamedic.gif')
+                //     break;
                 default:
                     $("#loading").attr('src', 'assets/salashaman.gif')
                     break;
@@ -205,7 +208,7 @@ $(function() {
 
     });
 
-    $('#btnStopConference').click(function(e) {
+    $('#btnStopConference').click(function (e) {
         if (document.getElementById('divLoadingMobile')) {
             var roomId = (new URL(location.href)).searchParams.get('roomId');
             localStorage.setItem('roomId', roomId);
@@ -223,7 +226,7 @@ $(function() {
         }
     });
 
-    $('#btnOpenChat').click(function(e) {
+    $('#btnOpenChat').click(function (e) {
         if (document.getElementById('divChatMobile')) {
             document.getElementById('divChatMobile').style.display = 'block';
         }
@@ -267,7 +270,7 @@ $(function() {
             // activeConversation = connectedSession.getConversation(name);
 
             //Listen to incoming messages from conversation
-            connectedConversation.on('message', function(e) {
+            connectedConversation.on('message', function (e) {
                 var chat = '<div class="incoming_msg pb-2">' +
                     '<div class="bg-info incoming_msg_img rounded-left text-white" style="padding: 7px 7px 7px 5px">C</div>' +
                     '<div class="received_msg">' +
@@ -295,22 +298,22 @@ $(function() {
 
             });
             //Listen for any participants entering or leaving the conversation
-            connectedConversation.on('contactJoined', function(contact) {
-                    console.log("Contact that has joined :", contact);
-                    renderUserList();
-                    if (document.getElementById('divLoadingMobile')) {
-                        document.getElementById('divLoadingMobile').style.display = 'none';
-                        getDoctor();
-                    }
+            connectedConversation.on('contactJoined', function (contact) {
+                console.log("Contact that has joined :", contact);
+                renderUserList();
+                if (document.getElementById('divLoadingMobile')) {
+                    document.getElementById('divLoadingMobile').style.display = 'none';
+                    getDoctor();
+                }
 
-                    if (document.getElementById('divLoadingWeb'))
-                        document.getElementById('divLoadingWeb').style.display = 'none';
+                if (document.getElementById('divLoadingWeb'))
+                    document.getElementById('divLoadingWeb').style.display = 'none';
 
-                    $('#typing-area').removeAttr('disabled');
-                    $('#send-message').removeAttr('disabled');
+                $('#typing-area').removeAttr('disabled');
+                $('#send-message').removeAttr('disabled');
 
-                })
-                .on('contactLeft', function(contact) {
+            })
+                .on('contactLeft', function (contact) {
                     console.log("Contact that has left :", contact);
                     renderUserList();
                     if (document.getElementById('divLoadingMobile'))
@@ -343,12 +346,12 @@ $(function() {
         $.ajax({
             //url: "http://paramedicapps.com.ar:9876/Login/GetDoctorViewModelFromConference/" + sConferenceId,
             url: "https://telmed.paramedicapps.com.ar/api/Login/GetDoctorViewModelFromConference/" + sConferenceId,
-            success: function(respuesta) {
+            success: function (respuesta) {
                 $("#divNombreDoctor").show();
                 $("#spanDoctor").text(" " + respuesta.Name + " (" + respuesta.Enrollment + ") ");
                 console.log(respuesta);
             },
-            error: function() {
+            error: function () {
                 $("#divNombreDoctor").hide();
                 $("#spanDoctor").text(" Sin datos del doctor");
                 console.log("No se ha podido obtener la información");
@@ -366,14 +369,14 @@ $(function() {
         }
     }
 
-    $('#btnCerrarChat').on('click', function() {
+    $('#btnCerrarChat').on('click', function () {
         if (document.getElementById('divChatMobile'))
             document.getElementById('divChatMobile').style.display = 'none';
         if (document.getElementById('divChatWeb'))
             document.getElementById('divChatWeb').style.display = 'none';
     });
 
-    $('#typing-area').keypress(function(e) {
+    $('#typing-area').keypress(function (e) {
         if (e.which == 13) {
             sendMessageToActiveConversation($('#typing-area').val().toString());
             return false;
@@ -381,7 +384,7 @@ $(function() {
     });
 
 
-    $('#send-message').on('click', function() {
+    $('#send-message').on('click', function () {
         sendMessageToActiveConversation($('#typing-area').val().toString());
     });
 
