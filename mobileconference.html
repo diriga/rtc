@@ -47,7 +47,16 @@
             <div class="messaging">
                 <div class="inbox_msg">
                     <button id="btnCerrarChat" class="btn btn-block btn-info m-1">Cerrar chat</button>
-                    <div class="mesgs" style="width: 100%;position: absolute;bottom: 0;top: 53px;">
+
+                    <div id='sendfile'>
+                        <div>
+                            <h3>Seleccionar archivo :</h3>
+                            <input id="contactFileToSend" type="file" />
+                        </div>
+                        <button id="betEnviarArchivo" class="btn btn-block btn-info m-1">Enviar archivo</button>                        
+                    </div>
+
+                    <div class="mesgs" style="width: 100%;position: absolute;bottom: 0;top: 170px;">
                         <div class="msg_history" id="divMensajes">
                             <ul id="message-list" class="pl-0"></ul>
                         </div>

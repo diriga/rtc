@@ -7,6 +7,7 @@ $(function () {
     var connectedConversation = null;
     // var activeConversation = null;
     var localStream = null;
+    var fileTransferInvitation = null;
 
 
     function joinConference(name) {
@@ -34,6 +35,33 @@ $(function () {
                         let contactList = connectedConversation.getContacts();
                         console.info("contactList  connectedConversation.getContacts() :", contactList);
                     }
+                })
+                .on('fileTransferInvitation', function (invitation) {
+
+                    console.log("invitation :", invitation);
+                    invitation
+                        .on('statusChange', (newStatus) => {
+                            console.debug('statusChange :', newStatus);
+
+                            if (newStatus === apiRTC.INVITATION_STATUS_ENDED || newStatus === apiRTC.INVITATION_STATUS_CANCELLED) {
+                                console.debug('status ended');
+                                //Removing progress bar when ended
+                                $("#progressbar").hide();                               
+                            }
+                        });
+
+                    invitation.accept()
+                        .then((fileObj) => {
+
+                            console.log("name :", fileObj.name);
+                            console.log("type :", fileObj.type);
+
+                            createDownloadLink(fileObj.file, fileObj.name);
+
+                        }).catch(function (error) {
+                            console.error('invitation.accept error :', error);
+                        });
+
                 });
 
             //==============================
@@ -152,8 +180,6 @@ $(function () {
     // CREATE CONFERENCE
     //==============================
 
-
-
     $(document).ready(function () {
         var roomId = (new URL(location.href)).searchParams.get('roomId');
         var salaGif = (new URL(location.href)).searchParams.get('sala');
@@ -240,9 +266,104 @@ $(function () {
     /// CHAT
     //Wrapper to send a message to everyone in the conversation and display sent message in UI
 
+    function createDownloadLink(fileUrl, fileName, emitter) {
 
+        var downloadDiv = null,
+            text = null;
 
-    function sendMessageToActiveConversation(message) {
+        downloadDiv = document.createElement("a");
+
+        if (fileUrl instanceof Blob) {
+            downloadDiv.href = (window.URL || window.webkitURL).createObjectURL(fileUrl);
+        } else {
+            downloadDiv.href = fileUrl || "#";
+        }
+        downloadDiv.innerHTML = ""; //Cleaning downloadDiv
+        downloadDiv.download = fileName;
+        text = fileName;
+        downloadDiv.appendChild(document.createTextNode(text));
+        downloadDiv.style.display = 'block';
+        downloadDiv.style.color = emitter ? 'white' : 'black';
+
+        if (emitter) {
+            addFileMessageEmitter(downloadDiv.outerHTML);
+        }
+        else {
+            addFileMessage(downloadDiv.outerHTML);
+        }
+    }
+
+    function sendFile() {
+
+        var contactList = connectedConversation.getContacts();
+        var contactId = Object.keys(contactList)[0];
+        var contact = connectedSession.getContact(contactId);
+
+        if (contact !== null) {
+
+            var file = $('#contactFileToSend')[0].files[0];
+
+            if (file === undefined) {
+                console.error("You need to select a file");
+                return;
+            }
+
+            console.log("sendFile file.name :", file.name);
+            console.log("sendFile file.type :", file.type);
+
+            var fileInfo = {
+                name: file.name,
+                type: file.type
+            };
+
+            fileTransferInvitation = contact.sendFile(fileInfo, file);
+
+            createDownloadLink(file.file, file.name, true);
+        }
+    }
+
+    function addFileMessageEmitter(aLink) {
+
+        var chat = '<div class="outgoing_msg pb-2">' +
+
+            '<div class="sent_msg">' +
+            '<p>' + aLink + '</p>' +
+            '</div>' +
+            '</div>';
+
+        $('#message-list').append('<li>' + chat + '</li>');
+        $('#message-list').scrollTop($('#message-list').height())
+
+    }
+
+    function addFileMessage(aLink) {
+
+        var chat = '<div class="incoming_msg pb-2">' +
+            '<div class="bg-info incoming_msg_img rounded-left text-white" style="padding: 7px 7px 7px 5px">C</div>' +
+            '<div class="received_msg">' +
+            '<div class="received_withd_msg">' +
+            '<p>' + aLink + '</p>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+
+        $('#message-list').append('<li>' + chat + '</li>');
+        $('#message-list').scrollTop($('#message-list').height());
+
+        if (document.getElementById('divChatMobile')) {
+            if ($('#divChatMobile').css('display') == 'none') {
+                $('#badgeAviso').show();
+            }
+        }
+
+        if (document.getElementById('divChatWeb')) {
+            if ($('#divChatWeb').css('display') == 'none') {
+                $('#badgeAviso').show();
+            }
+        }
+    }
+
+    function sendMessageToActiveConversation(message, isFile) {
         if (message !== '') {
             $('#typing-area').val('');
             $("#typing-area").focus();
@@ -319,23 +440,8 @@ $(function () {
                         document.getElementById('divLoadingWeb').style.display = 'none';
 
                 });
-
-            // activeConversation.join()
-            //     .then(function() {
-            //         //Conversation was successfully joined
-            //         document.getElementById('active-conversation-name').innerHTML = activeConversation.getName();
-            //         showChatBox();
-            //         renderUserList();
-            //         // if (document.getElementById('divLoading'))
-            //         //     document.getElementById('divLoading').style.display = 'none';
-
-            //     })
-            //     .catch(function(err) {
-            //         //Woops! User agent was not able to join conversation
-            //     });
         }
     }
-
 
     function getDoctor() {
         var sConferenceId = (new URL(location.href)).searchParams.get('roomId').split('room')[1];
@@ -385,9 +491,8 @@ $(function () {
         sendMessageToActiveConversation($('#typing-area').val().toString());
     });
 
-    ///////CHAT
+    $('#betEnviarArchivo').on('click', function () {
 
-
-
-
+        sendFile();
+    });
 });
