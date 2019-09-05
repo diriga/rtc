@@ -232,7 +232,7 @@ img {
     width: 46%;
 }
 
-.input_msg_write input {
+.input_msg_write input[type="text"] {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border: medium none;
     color: #4c4c4c;
@@ -264,6 +264,11 @@ img {
     width: 33px;
 }
 
+.msg_send_btn:hover,
+.msg_send_btn:focus {
+    background-color: #1eaccf;
+}
+
 .messaging {
     padding: 0 0 50px 0;
 }
@@ -280,3 +285,35 @@ img {
     max-height: 460px;
     overflow-y: auto;
 }
+
+[type="file"] {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute !important;
+    white-space: nowrap;
+    width: 1px; 
+  }
+
+  [type="file"] + label {
+    background: #05728f none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    font-size: 17px;
+    height: 33px;
+    position: absolute;
+    right: 40px;
+    top: 11px;
+    width: 33px;
+    padding-left: 9px;
+    padding-top: 3px;
+  }
+   
+  [type="file"]:focus + label,
+  [type="file"] + label:hover {
+      background-color: #1eaccf;
+  }

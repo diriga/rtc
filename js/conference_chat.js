@@ -229,6 +229,26 @@ $(function () {
             $('#send-message').attr('disabled', 'disabled');
 
             //CHAT
+            var inputs = document.querySelectorAll('.input-file');
+ 
+            Array.prototype.forEach.call( inputs, function( input ) {
+            var label = input.nextElementSibling,
+                        labelVal = label.innerHTML;
+            
+            input.addEventListener( 'change', function( e ) {
+                var fileName = '';
+                
+                if ( this.files && this.files.length > 1 ) {
+                fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+                } else {
+                fileName = e.target.value.split( '\\' ).pop();
+                }
+            
+                if ( fileName ) {
+                    sendFile();
+                } 
+            });
+            });
 
         }
 
@@ -284,7 +304,7 @@ $(function () {
         downloadDiv.innerHTML = ""; //Cleaning downloadDiv
         downloadDiv.download = fileName;
         text = fileName;
-        downloadDiv.appendChild(document.createTextNode(text));
+        downloadDiv.innerHTML = '<i class="fa fa-file" aria-hidden="true"> &nbsp;' + text + '</i>';
         downloadDiv.style.display = 'block';
         downloadDiv.style.color = emitter ? 'white' : 'black';
 
@@ -319,7 +339,7 @@ $(function () {
                 type: file.type
             };
 
-            fileTransferInvitation = contact.sendFile(fileInfo, file);
+            var fileTransferInvitation = contact.sendFile(fileInfo, file);
 
             createDownloadLink(file.file, file.name, true);
         }
@@ -491,10 +511,5 @@ $(function () {
 
     $('#send-message').on('click', function () {
         sendMessageToActiveConversation($('#typing-area').val().toString());
-    });
-
-    $('#betEnviarArchivo').on('click', function () {
-
-        sendFile();
     });
 });
