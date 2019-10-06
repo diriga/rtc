@@ -5,7 +5,6 @@ $(function() {
     var connectedSession = null;
     var activeConversation = null;
 
-
     function showChatBox() {
         document.getElementById('chat').style.display = 'block';
         document.getElementById('conversation-selector').style.display = 'none';
@@ -155,7 +154,6 @@ $(function() {
     });
 
     $('#send-message').on('click', function() {
-        debugger;
         sendMessageToActiveConversation($('#typing-area').val().toString());
     });
 

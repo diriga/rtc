@@ -41,14 +41,7 @@
             <div class="messaging">
                 <div class="inbox_msg">
                     <button id="btnCerrarChat" class="btn btn-block btn-info m-1">Cerrar chat</button>
-
-                    <div id='sendfile'>
-                        <div>
-                            <h3>Seleccionar archivo :</h3>
-                            <input id="contactFileToSend" type="file" />
-                        </div>
-                        <button id="betEnviarArchivo" class="btn btn-block btn-info m-1">Enviar archivo</button>                        
-                    </div>
+                    <p class="file-return"></p>
 
                     <div class="mesgs" style="width: 100%;">
                         <div class="msg_history" id="divMensajes">
@@ -57,7 +50,9 @@
                         <div id="chat-footer" class="type_msg">
                             <div class="input_msg_write">
                                 <input autofocus id="typing-area" type="text" class="write_msg" placeholder="Escribe un mensaje" />
-                                <button id="send-message" class="msg_send_btn" type="button"><i class="fa fa-play" aria-hidden="true"></i></button>
+                                <button id="send-message" class="msg_send_btn" type="button" title="Enviar mensaje"><i class="fa fa-play" aria-hidden="true"></i></button>
+                                <input class="input-file" id="contactFileToSend" type="file"/> 
+                                <label for="contactFileToSend" class="msg_send_btn" title="Adjuntar archivo"/><i class="fa fa-paperclip" aria-hidden="true"></i></label>
                             </div>
                         </div>
                     </div>
