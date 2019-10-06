@@ -1,18 +1,17 @@
+apiRTC.setLogLevel(10);
+var cloudUrl = 'https://cloud.apizee.com';
+var connectedSession = null;
+var connectedConversation = null;
+// var activeConversation = null;
+var localStream = null;
+var AIDShamanAPIUrl = "https://telmed.paramedicapps.com.ar/apitest/";
+//url: "http://paramedicapps.com.ar:9876/Login/GetDoctorViewModelFromConference/" + sConferenceId,
+//url: "https://telmed.paramedicapps.com.ar/api/Login/GetDoctorViewModelFromConference/" + sConferenceId,
+
+
 $(function () {
     'use strict';
-
-    apiRTC.setLogLevel(10);
-    var cloudUrl = 'https://cloud.apizee.com';
-    var connectedSession = null;
-    var connectedConversation = null;
-    // var activeConversation = null;
-    var localStream = null;
-    var AIDShamanAPIUrl = "https://telmed.paramedicapps.com.ar/api/";
-
-    //url: "http://paramedicapps.com.ar:9876/Login/GetDoctorViewModelFromConference/" + sConferenceId,
-    //url: "https://telmed.paramedicapps.com.ar/api/Login/GetDoctorViewModelFromConference/" + sConferenceId,
-
-
+    
     function joinConference(name) {
 
         //==============================
@@ -186,11 +185,18 @@ $(function () {
     $(document).ready(function () {
         var roomId = (new URL(location.href)).searchParams.get('roomId');
         var salaGif = (new URL(location.href)).searchParams.get('sala');
+        var esAndroid = (new URL(location.href)).searchParams.get('android');
 
         var roomHist = localStorage.getItem('roomId');
 
+        //Si es android podrá salir haciendo atras o el botón de arriba "Volver a la app"
+        if(esAndroid){
+            $("#btnStopConference").hide();
+        }
+
         if (roomHist == roomId) {
             $("#containerFinish").show();
+            return;
         } else {
             switch (salaGif) {
                 case 'shaman':
@@ -235,21 +241,8 @@ $(function () {
     });
 
     $('#btnStopConference').click(function (e) {
-        if (document.getElementById('divLoadingMobile')) {
-            var roomId = (new URL(location.href)).searchParams.get('roomId');
-            localStorage.setItem('roomId', roomId);
-            connectedConversation.cancelJoin();
-            connectedConversation.stopRecording();
-            connectedConversation.destroy();
-            connectedConversation = null;
-            localStream = null;
-            $("#containerFinish").show();
-            //alert(localStorage.getItem('roomId'));
-            //location.href = "videoconferencemobilefinish.html";
-        }
-        if (document.getElementById('divLoadingWeb')) {
-            location.href = "videoconferencefinish.html";
-        }
+       
+        stopConference();
     });
 
     $('#btnOpenChat').click(function (e) {
@@ -268,6 +261,38 @@ $(function () {
 
     /// CHAT
     //Wrapper to send a message to everyone in the conversation and display sent message in UI
+
+    function stopConference(){
+
+        debugger;
+        if (document.getElementById('divLoadingMobile')) {
+            var roomId = (new URL(location.href)).searchParams.get('roomId');
+            var esAndroid = (new URL(location.href)).searchParams.get('android');
+
+            localStorage.setItem('roomId', roomId);
+
+            if(connectedConversation){
+
+                connectedConversation.cancelJoin();
+                connectedConversation.stopRecording();
+                connectedConversation.destroy();
+                connectedConversation = null;
+                localStream = null;
+            }
+
+            if(esAndroid){
+                // window.open('location', '_self', '');
+                // window.close();
+                //history.go(-1);
+            }
+            else{
+                $("#containerFinish").show();
+            }
+        }
+        if (document.getElementById('divLoadingWeb')) {
+            location.href = "videoconferencefinish.html";
+        }
+    }
 
     function createDownloadLink(fileUrl, fileName, emitter) {
 
