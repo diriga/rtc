@@ -115,6 +115,36 @@ $(function () {
                 */
             }).on('streamRemoved', function (stream) {
                 stream.removeFromDiv('remote-container', 'remote-media-' + stream.streamId);
+                
+                if (document.getElementById('divLoadingMobile')) {
+                    var roomId = (new URL(location.href)).searchParams.get('roomId');
+                    var esAndroid = (new URL(location.href)).searchParams.get('android');
+        
+                    localStorage.setItem('roomId', roomId);
+        
+                    if(connectedConversation){
+        
+                        connectedConversation.cancelJoin();
+                        connectedConversation.stopRecording();
+                        connectedConversation.destroy();
+                        connectedConversation = null;
+                        localStream = null;
+                    }
+        
+                    if(esAndroid){
+                        // window.open('location', '_self', '');
+                        // window.close();
+                        //history.go(-1);
+                    }
+                    else{
+                        $("#containerFinish").show();
+                    }
+                }
+                if (document.getElementById('divLoadingWeb')) {
+                    location.href = "videoconferencefinish.html";
+                }
+
+
                 //document.getElementById('aviso').style.display = 'block';
                 /*
                                 document.getElementById('remote-media-' + stream.streamId).remove();
@@ -284,7 +314,6 @@ $(function () {
 
     function stopConference(){
 
-        debugger;
         if (document.getElementById('divLoadingMobile')) {
             var roomId = (new URL(location.href)).searchParams.get('roomId');
             var esAndroid = (new URL(location.href)).searchParams.get('android');
