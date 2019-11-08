@@ -4,7 +4,7 @@ var connectedSession = null;
 var connectedConversation = null;
 // var activeConversation = null;
 var localStream = null;
-var AIDShamanAPIUrl = "https://telmed.paramedicapps.com.ar/apitest/";
+var AIDShamanAPIUrl = "https://telmed.paramedicapps.com.ar/api/";
 //url: "http://paramedicapps.com.ar:9876/Login/GetDoctorViewModelFromConference/" + sConferenceId,
 //url: "https://telmed.paramedicapps.com.ar/api/Login/GetDoctorViewModelFromConference/" + sConferenceId,
 
@@ -99,6 +99,7 @@ $(function () {
             connectedConversation.on('streamAdded', function (stream) {
                 stream.addInDiv('remote-container', 'remote-media-' + stream.streamId, {}, false);
                 document.getElementById('loading').style.display = 'none';
+                document.getElementsByClassName('footer-div')[0].style.display = 'block';
                 /*
                                 // Subscribed Stream is available for display
                                 // Get remote media container
@@ -115,6 +116,37 @@ $(function () {
                 */
             }).on('streamRemoved', function (stream) {
                 stream.removeFromDiv('remote-container', 'remote-media-' + stream.streamId);
+                
+                if (document.getElementById('divLoadingMobile')) {
+                    var roomId = (new URL(location.href)).searchParams.get('roomId');
+                    var esAndroid = (new URL(location.href)).searchParams.get('android');
+        
+                    localStorage.setItem('roomId', roomId);
+        
+                    if(connectedConversation){
+        
+                        connectedConversation.cancelJoin();
+                        connectedConversation.stopRecording();
+                        connectedConversation.destroy();
+                        connectedConversation = null;
+                        localStream = null;
+                    }
+        
+                    if(esAndroid){
+                        // window.open('location', '_self', '');
+                        // window.close();
+                        //history.go(-1);
+                        $("#containerFinish").show();
+                    }
+                    else{
+                        $("#containerFinish").show();
+                    }
+                }
+                if (document.getElementById('divLoadingWeb')) {
+                    location.href = "videoconferencefinish.html";
+                }
+
+
                 //document.getElementById('aviso').style.display = 'block';
                 /*
                                 document.getElementById('remote-media-' + stream.streamId).remove();
@@ -190,9 +222,9 @@ $(function () {
         var roomHist = localStorage.getItem('roomId');
 
         //Si es android podrá salir haciendo atras o el botón de arriba "Volver a la app"
-        if(esAndroid){
+        /*if(esAndroid){
             $("#btnStopConference").hide();
-        }
+        }*/
 
         if (roomHist == roomId) {
             $("#containerFinish").show();
@@ -282,9 +314,8 @@ $(function () {
     /// CHAT
     //Wrapper to send a message to everyone in the conversation and display sent message in UI
 
-    function stopConference(){
+    window.stopConference = function() {
 
-        debugger;
         if (document.getElementById('divLoadingMobile')) {
             var roomId = (new URL(location.href)).searchParams.get('roomId');
             var esAndroid = (new URL(location.href)).searchParams.get('android');
@@ -304,6 +335,7 @@ $(function () {
                 // window.open('location', '_self', '');
                 // window.close();
                 //history.go(-1);
+                $("#containerFinish").show();
             }
             else{
                 $("#containerFinish").show();
