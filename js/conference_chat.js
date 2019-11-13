@@ -9,9 +9,9 @@ var AIDShamanAPIUrl = "https://telmed.paramedicapps.com.ar/api/";
 //url: "https://telmed.paramedicapps.com.ar/api/Login/GetDoctorViewModelFromConference/" + sConferenceId,
 
 
-$(function () {
+$(function() {
     'use strict';
-    
+
     function joinConference(name) {
 
         //==============================
@@ -26,19 +26,19 @@ $(function () {
         //==============================
         ua.register({
             cloudUrl: cloudUrl,
-        }).then(function (session) {
+        }).then(function(session) {
             // Save session
             connectedSession = session;
 
             connectedSession
-                .on("contactListUpdate", function (updatedContacts) { //display a list of connected users
+                .on("contactListUpdate", function(updatedContacts) { //display a list of connected users
                     console.log("MAIN - contactListUpdate", updatedContacts);
                     if (connectedConversation !== null) {
                         let contactList = connectedConversation.getContacts();
                         console.info("contactList  connectedConversation.getContacts() :", contactList);
                     }
                 })
-                .on('fileTransferInvitation', function (invitation) {
+                .on('fileTransferInvitation', function(invitation) {
 
                     console.log("invitation :", invitation);
                     invitation
@@ -48,7 +48,7 @@ $(function () {
                             if (newStatus === apiRTC.INVITATION_STATUS_ENDED || newStatus === apiRTC.INVITATION_STATUS_CANCELLED) {
                                 console.debug('status ended');
                                 //Removing progress bar when ended
-                                $("#progressbar").hide();                               
+                                $("#progressbar").hide();
                             }
                         });
 
@@ -60,7 +60,7 @@ $(function () {
 
                             createDownloadLink(fileObj.file, fileObj.name);
 
-                        }).catch(function (error) {
+                        }).catch(function(error) {
                             console.error('invitation.accept error :', error);
                         });
 
@@ -77,7 +77,7 @@ $(function () {
             //==========================================================
             // 4/ ADD EVENT LISTENER : WHEN NEW STREAM IS AVAILABLE IN CONVERSATION
             //==========================================================
-            connectedConversation.on('streamListChanged', function (streamInfo) {
+            connectedConversation.on('streamListChanged', function(streamInfo) {
 
                 console.log("streamListChanged :", streamInfo);
 
@@ -85,9 +85,9 @@ $(function () {
                     if (streamInfo.isRemote === true) {
 
                         connectedConversation.subscribeToMedia(streamInfo.streamId)
-                            .then(function (stream) {
+                            .then(function(stream) {
                                 console.log('subscribeToMedia success');
-                            }).catch(function (err) {
+                            }).catch(function(err) {
                                 console.error('subscribeToMedia error', err);
                             });
                     }
@@ -96,7 +96,7 @@ $(function () {
             //=====================================================
             // 4 BIS/ ADD EVENT LISTENER : WHEN STREAM WAS REMOVED FROM THE CONVERSATION
             //=====================================================
-            connectedConversation.on('streamAdded', function (stream) {
+            connectedConversation.on('streamAdded', function(stream) {
                 stream.addInDiv('remote-container', 'remote-media-' + stream.streamId, {}, false);
                 document.getElementById('loading').style.display = 'none';
                 document.getElementsByClassName('footer-div')[0].style.display = 'block';
@@ -114,31 +114,30 @@ $(function () {
                                 // Attach stream
                                 stream.attachToElement(mediaElement);
                 */
-            }).on('streamRemoved', function (stream) {
+            }).on('streamRemoved', function(stream) {
                 stream.removeFromDiv('remote-container', 'remote-media-' + stream.streamId);
-                
+
                 if (document.getElementById('divLoadingMobile')) {
                     var roomId = (new URL(location.href)).searchParams.get('roomId');
                     var esAndroid = (new URL(location.href)).searchParams.get('android');
-        
+
                     localStorage.setItem('roomId', roomId);
-        
-                    if(connectedConversation){
-        
+
+                    if (connectedConversation) {
+
                         connectedConversation.cancelJoin();
                         connectedConversation.stopRecording();
                         connectedConversation.destroy();
                         connectedConversation = null;
                         localStream = null;
                     }
-        
-                    if(esAndroid){
+
+                    if (esAndroid) {
                         // window.open('location', '_self', '');
                         // window.close();
                         //history.go(-1);
                         $("#containerFinish").show();
-                    }
-                    else{
+                    } else {
                         $("#containerFinish").show();
                     }
                 }
@@ -164,7 +163,7 @@ $(function () {
             };
 
             ua.createStream(createStreamOptions)
-                .then(function (stream) {
+                .then(function(stream) {
 
                     console.log('createStream :', stream);
 
@@ -194,17 +193,17 @@ $(function () {
                     // 6/ JOIN CONVERSATION
                     //==============================
                     connectedConversation.join()
-                        .then(function (response) {
+                        .then(function(response) {
                             //==============================
                             // 7/ PUBLISH OWN STREAM
                             //==============================
                             connectedConversation.publish(localStream, null);
 
-                        }).catch(function (err) {
+                        }).catch(function(err) {
                             console.error('Conversation join error', err);
                         });
 
-                }).catch(function (err) {
+                }).catch(function(err) {
                     console.error('create stream error', err);
                 });
         });
@@ -214,7 +213,7 @@ $(function () {
     // CREATE CONFERENCE
     //==============================
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         var roomId = (new URL(location.href)).searchParams.get('roomId');
         var salaGif = (new URL(location.href)).searchParams.get('sala');
         var esAndroid = (new URL(location.href)).searchParams.get('android');
@@ -234,12 +233,12 @@ $(function () {
                 case 'shaman':
                     $("#loading").attr('src', 'assets/salashaman.gif')
                     break;
-                // case '5688923118':
-                //     $("#loading").attr('src', 'assets/emerger.gif')
-                //     break;
-                // case '4678913118':
-                //     $("#loading").attr('src', 'assets/salaparamedic.gif')
-                //     break;
+                    // case '5688923118':
+                    //     $("#loading").attr('src', 'assets/emerger.gif')
+                    //     break;
+                    // case '4678913118':
+                    //     $("#loading").attr('src', 'assets/salaparamedic.gif')
+                    //     break;
                 default:
                     $("#loading").attr('src', 'assets/' + salaGif + '.gif')
                     break;
@@ -268,36 +267,33 @@ $(function () {
 
             //CHAT
             var inputs = document.querySelectorAll('.input-file');
- 
-            Array.prototype.forEach.call( inputs, function( input ) {
-            var label = input.nextElementSibling,
-                        labelVal = label.innerHTML;
-            
-            input.addEventListener( 'change', function( e ) {
-                var fileName = '';
-                
-                if ( this.files && this.files.length > 1 ) {
-                fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
-                } else {
-                fileName = e.target.value.split( '\\' ).pop();
-                }
-            
-                if ( fileName ) {
-                    sendFile();
-                } 
-            });
-            });
 
+            Array.prototype.forEach.call(inputs, function(input) {
+                var label = input.nextElementSibling,
+                    labelVal = label.innerHTML;
+
+                input.addEventListener('change', function(e) {
+                    var fileName = '';
+
+                    if (this.files && this.files.length > 1) {
+                        fileName = (this.getAttribute('data-multiple-caption') || '').replace('{count}', this.files.length);
+                    } else {
+                        fileName = e.target.value.split('\\').pop();
+                    }
+
+                    if (fileName) {
+                        sendFile();
+                    }
+                });
+            });
         }
-
     });
 
-    $('#btnStopConference').click(function (e) {
-       
+    $('#btnStopConference').click(function(e) {
         stopConference();
     });
 
-    $('#btnOpenChat').click(function (e) {
+    $('#btnOpenChat').click(function(e) {
         if (document.getElementById('divChatMobile')) {
             document.getElementById('divChatMobile').style.display = 'block';
         }
@@ -306,13 +302,8 @@ $(function () {
             document.getElementById('divChatWeb').style.display = 'block';
         }
         $('#badgeAviso').hide();
-
-
     });
 
-
-    /// CHAT
-    //Wrapper to send a message to everyone in the conversation and display sent message in UI
 
     window.stopConference = function() {
 
@@ -322,22 +313,35 @@ $(function () {
 
             localStorage.setItem('roomId', roomId);
 
-            if(connectedConversation){
-
+            if (connectedConversation) {
                 connectedConversation.cancelJoin();
                 connectedConversation.stopRecording();
                 connectedConversation.destroy();
                 connectedConversation = null;
                 localStream = null;
+
+                $.ajax({
+                    data: JSON.stringify({ conferenceId: sConferenceId, cancelMessage: "" }),
+                    url: AIDShamanAPIUrl + "Conference/CancelMobile",
+                    // data: JSON.stringify({ conferenceId: 599, cancelMessage: "" }),
+                    // url: "http://localhost:50368/Conference/CancelMobile",
+                    type: 'POST',
+                    contentType: "application/json",
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error: function(response) {
+                        console.log(response);
+                    }
+                });
             }
 
-            if(esAndroid){
+            if (esAndroid) {
                 // window.open('location', '_self', '');
                 // window.close();
                 //history.go(-1);
                 $("#containerFinish").show();
-            }
-            else{
+            } else {
                 $("#containerFinish").show();
             }
         }
@@ -367,8 +371,7 @@ $(function () {
 
         if (emitter) {
             addFileMessageEmitter(downloadDiv.outerHTML);
-        }
-        else {
+        } else {
             addFileMessage(downloadDiv.outerHTML);
         }
     }
@@ -468,7 +471,7 @@ $(function () {
             // activeConversation = connectedSession.getConversation(name);
 
             //Listen to incoming messages from conversation
-            connectedConversation.on('message', function (e) {
+            connectedConversation.on('message', function(e) {
                 var chat = '<div class="incoming_msg pb-2">' +
                     '<div class="bg-info incoming_msg_img rounded-left text-white" style="padding: 7px 7px 7px 5px">C</div>' +
                     '<div class="received_msg">' +
@@ -496,22 +499,22 @@ $(function () {
 
             });
             //Listen for any participants entering or leaving the conversation
-            connectedConversation.on('contactJoined', function (contact) {
-                console.log("Contact that has joined :", contact);
-                renderUserList();
-                if (document.getElementById('divLoadingMobile')) {
-                    document.getElementById('divLoadingMobile').style.display = 'none';
-                    getDoctor();
-                }
+            connectedConversation.on('contactJoined', function(contact) {
+                    console.log("Contact that has joined :", contact);
+                    renderUserList();
+                    if (document.getElementById('divLoadingMobile')) {
+                        document.getElementById('divLoadingMobile').style.display = 'none';
+                        getDoctor();
+                    }
 
-                if (document.getElementById('divLoadingWeb'))
-                    document.getElementById('divLoadingWeb').style.display = 'none';
+                    if (document.getElementById('divLoadingWeb'))
+                        document.getElementById('divLoadingWeb').style.display = 'none';
 
-                $('#typing-area').removeAttr('disabled');
-                $('#send-message').removeAttr('disabled');
+                    $('#typing-area').removeAttr('disabled');
+                    $('#send-message').removeAttr('disabled');
 
-            })
-                .on('contactLeft', function (contact) {
+                })
+                .on('contactLeft', function(contact) {
                     console.log("Contact that has left :", contact);
                     renderUserList();
                     if (document.getElementById('divLoadingMobile'))
@@ -528,12 +531,12 @@ $(function () {
 
         $.ajax({
             url: AIDShamanAPIUrl + "Login/GetDoctorViewModelFromConference/" + sConferenceId,
-            success: function (respuesta) {
+            success: function(respuesta) {
                 $("#divNombreDoctor").show();
                 $("#spanDoctor").text(" " + respuesta.Name + " (" + respuesta.Enrollment + ") ");
                 console.log(respuesta);
             },
-            error: function () {
+            error: function() {
                 $("#divNombreDoctor").hide();
                 $("#spanDoctor").text(" Sin datos del doctor");
                 console.log("No se ha podido obtener la información");
@@ -551,14 +554,14 @@ $(function () {
         }
     }
 
-    $('#btnCerrarChat').on('click', function () {
+    $('#btnCerrarChat').on('click', function() {
         if (document.getElementById('divChatMobile'))
             document.getElementById('divChatMobile').style.display = 'none';
         if (document.getElementById('divChatWeb'))
             document.getElementById('divChatWeb').style.display = 'none';
     });
 
-    $('#typing-area').keypress(function (e) {
+    $('#typing-area').keypress(function(e) {
         if (e.which == 13) {
             sendMessageToActiveConversation($('#typing-area').val().toString());
             return false;
@@ -566,7 +569,7 @@ $(function () {
     });
 
 
-    $('#send-message').on('click', function () {
+    $('#send-message').on('click', function() {
         sendMessageToActiveConversation($('#typing-area').val().toString());
     });
 });
