@@ -4,9 +4,10 @@ var connectedSession = null;
 var connectedConversation = null;
 // var activeConversation = null;
 var localStream = null;
-var AIDShamanAPIUrl = "https://telmed.paramedicapps.com.ar/api/";
+//var AIDShamanAPIUrl = "https://telmed.paramedicapps.com.ar/api/";
 //url: "http://paramedicapps.com.ar:9876/Login/GetDoctorViewModelFromConference/" + sConferenceId,
 //url: "https://telmed.paramedicapps.com.ar/api/Login/GetDoctorViewModelFromConference/" + sConferenceId,
+var AIDShamanAPIUrl = "http://localhost:50368/";
 
 
 $(function() {
@@ -171,6 +172,13 @@ $(function() {
                     localStream = stream;
                     stream.removeFromDiv('local-container', 'local-media');
                     stream.addInDiv('local-container', 'local-media', {}, true);
+                    
+                    localStream.startRecord().then(function () {
+                        console.log("startRecord Begins");
+                    }).catch(function (error) {
+                        // error
+                        console.error('startRecord failed :', error);
+                    });
 
                     /*
                                         // Get media container
@@ -314,6 +322,31 @@ $(function() {
             localStorage.setItem('roomId', roomId);
 
             if (connectedConversation) {
+
+                console.log("stopRecording");
+                localStream.stopRecord().then(function (recordedVideoBuff) {
+                    
+                    var sConferenceId = (new URL(location.href)).searchParams.get('roomId').split('room')[1];
+                    var data = new FormData();
+                    data.append('file', recordedVideoBuff);
+                    data.append('conferenceId', sConferenceId);
+                    
+                    $.ajax({
+                        url :  AIDShamanAPIUrl + "Conference/SendConferenceRecordedFile",
+                        type: 'POST',
+                        data: data,
+                        contentType: false,
+                        processData: false,
+                        success: function(data) {
+                        },    
+                        error: function() {
+                        }
+                    });
+                }).catch(function (error) {
+                    // error
+                    console.error('stopRecording failed :', error);
+                });
+
                 connectedConversation.cancelJoin();
                 connectedConversation.stopRecording();
                 connectedConversation.destroy();

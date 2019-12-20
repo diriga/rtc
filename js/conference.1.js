@@ -128,6 +128,7 @@ $(function() {
                             // 7/ PUBLISH OWN STREAM
                             //==============================
                             connectedConversation.publish(localStream, null);
+
                         }).catch(function(err) {
                             console.error('Conversation join error', err);
                         });
