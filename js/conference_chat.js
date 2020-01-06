@@ -362,7 +362,6 @@ $(function() {
                     //     success: function(data) {},
                     //     error: function() {}
                     // });
-
                 }).catch(function(error) {
                     // error
                     console.error('stopRecording failed :', error);
@@ -370,18 +369,19 @@ $(function() {
 
 
 
-
+                //Forzamos cierre
+                location.href = location.href + "&a=1";
 
             }
 
-            if (esAndroid) {
-                // window.open('location', '_self', '');
-                // window.close();
-                //history.go(-1);
-                $("#containerFinish").show();
-            } else {
-                $("#containerFinish").show();
-            }
+            // if (esAndroid) {
+            //     // window.open('location', '_self', '');
+            //     // window.close();
+            //     //history.go(-1);
+            //     $("#containerFinish").show();
+            // } else {
+            //     $("#containerFinish").show();
+            // }
         }
         if (document.getElementById('divLoadingWeb')) {
             location.href = "videoconferencefinish.html";
