@@ -172,10 +172,10 @@ $(function() {
                     localStream = stream;
                     stream.removeFromDiv('local-container', 'local-media');
                     stream.addInDiv('local-container', 'local-media', {}, true);
-                    
-                    localStream.startRecord().then(function () {
+
+                    localStream.startRecord().then(function() {
                         console.log("startRecord Begins");
-                    }).catch(function (error) {
+                    }).catch(function(error) {
                         // error
                         console.error('startRecord failed :', error);
                     });
@@ -323,50 +323,55 @@ $(function() {
 
             if (connectedConversation) {
 
+
                 console.log("stopRecording");
-                localStream.stopRecord().then(function (recordedVideoBuff) {
-                    
+                localStream.stopRecord().then(function(recordedVideoBuff) {
                     var sConferenceId = (new URL(location.href)).searchParams.get('roomId').split('room')[1];
-                    var data = new FormData();
-                    data.append('file', recordedVideoBuff);
-                    data.append('conferenceId', sConferenceId);
-                    
+                    connectedConversation.cancelJoin();
+                    connectedConversation.stopRecording();
+                    connectedConversation.destroy();
+                    connectedConversation = null;
+                    localStream = null;
+
                     $.ajax({
-                        url :  AIDShamanAPIUrl + "Conference/SendConferenceRecordedFile",
+                        data: JSON.stringify({ conferenceId: sConferenceId, cancelMessage: "" }),
+                        url: AIDShamanAPIUrl + "Conference/CancelMobile",
+                        // data: JSON.stringify({ conferenceId: 599, cancelMessage: "" }),
+                        // url: "http://localhost:50368/Conference/CancelMobile",
                         type: 'POST',
-                        data: data,
-                        contentType: false,
-                        processData: false,
-                        success: function(data) {
-                        },    
-                        error: function() {
+                        contentType: "application/json",
+                        success: function(response) {
+                            console.log(response);
+                        },
+                        error: function(response) {
+                            console.log(response);
                         }
                     });
-                }).catch(function (error) {
+
+
+                    // var data = new FormData();
+                    // data.append('file', recordedVideoBuff);
+                    // data.append('conferenceId', sConferenceId);
+
+                    // $.ajax({
+                    //     url: AIDShamanAPIUrl + "Conference/SendConferenceRecordedFile",
+                    //     type: 'POST',
+                    //     data: data,
+                    //     contentType: false,
+                    //     processData: false,
+                    //     success: function(data) {},
+                    //     error: function() {}
+                    // });
+
+                }).catch(function(error) {
                     // error
                     console.error('stopRecording failed :', error);
                 });
 
-                connectedConversation.cancelJoin();
-                connectedConversation.stopRecording();
-                connectedConversation.destroy();
-                connectedConversation = null;
-                localStream = null;
 
-                $.ajax({
-                    data: JSON.stringify({ conferenceId: sConferenceId, cancelMessage: "" }),
-                    url: AIDShamanAPIUrl + "Conference/CancelMobile",
-                    // data: JSON.stringify({ conferenceId: 599, cancelMessage: "" }),
-                    // url: "http://localhost:50368/Conference/CancelMobile",
-                    type: 'POST',
-                    contentType: "application/json",
-                    success: function(response) {
-                        console.log(response);
-                    },
-                    error: function(response) {
-                        console.log(response);
-                    }
-                });
+
+
+
             }
 
             if (esAndroid) {
