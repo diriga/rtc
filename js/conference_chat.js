@@ -232,69 +232,49 @@ $(function() {
         /*if(esAndroid){
             $("#btnStopConference").hide();
         }*/
-
-        if (roomHist == roomId) {
-            // $("#containerFinish").show();
-            // return;
-        } else {
-            switch (salaGif) {
-                case 'shaman':
-                    $("#loading").attr('src', 'assets/salashaman.gif')
-                    break;
-                    // case '5688923118':
-                    //     $("#loading").attr('src', 'assets/emerger.gif')
-                    //     break;
-                    // case '4678913118':
-                    //     $("#loading").attr('src', 'assets/salaparamedic.gif')
-                    //     break;
-                default:
-                    $("#loading").attr('src', 'assets/' + salaGif + '.gif')
-                    break;
-            }
-
+        $("#loading").attr('src', 'assets/' + salaGif + '.gif')
             // Get conference name
-            var conferenceName = roomId;
-            console.log(conferenceName);
-            //document.getElementById('create').style.display = 'none';
-            document.getElementById('conference').style.display = 'block';
-            document.getElementById('loading').style.display = 'block';
-            //document.getElementById('title').innerHTML = 'Sala en espera...';
+        var conferenceName = roomId;
+        console.log(conferenceName);
+        //document.getElementById('create').style.display = 'none';
+        document.getElementById('conference').style.display = 'block';
+        document.getElementById('loading').style.display = 'block';
+        //document.getElementById('title').innerHTML = 'Sala en espera...';
 
-            // Join conference
-            joinConference(conferenceName);
+        // Join conference
+        joinConference(conferenceName);
 
-            //CHAT
-            if (document.getElementById('divLoadingMobile'))
-                document.getElementById('divLoadingMobile').style.display = 'block';
-            if (document.getElementById('divLoadingWeb'))
-                document.getElementById('divLoadingWeb').style.display = 'block';
+        //CHAT
+        if (document.getElementById('divLoadingMobile'))
+            document.getElementById('divLoadingMobile').style.display = 'block';
+        if (document.getElementById('divLoadingWeb'))
+            document.getElementById('divLoadingWeb').style.display = 'block';
 
-            $('#badgeAviso').hide();
-            $('#typing-area').attr('disabled', 'disabled');
-            $('#send-message').attr('disabled', 'disabled');
+        $('#badgeAviso').hide();
+        $('#typing-area').attr('disabled', 'disabled');
+        $('#send-message').attr('disabled', 'disabled');
 
-            //CHAT
-            var inputs = document.querySelectorAll('.input-file');
+        //CHAT
+        var inputs = document.querySelectorAll('.input-file');
 
-            Array.prototype.forEach.call(inputs, function(input) {
-                var label = input.nextElementSibling,
-                    labelVal = label.innerHTML;
+        Array.prototype.forEach.call(inputs, function(input) {
+            var label = input.nextElementSibling,
+                labelVal = label.innerHTML;
 
-                input.addEventListener('change', function(e) {
-                    var fileName = '';
+            input.addEventListener('change', function(e) {
+                var fileName = '';
 
-                    if (this.files && this.files.length > 1) {
-                        fileName = (this.getAttribute('data-multiple-caption') || '').replace('{count}', this.files.length);
-                    } else {
-                        fileName = e.target.value.split('\\').pop();
-                    }
+                if (this.files && this.files.length > 1) {
+                    fileName = (this.getAttribute('data-multiple-caption') || '').replace('{count}', this.files.length);
+                } else {
+                    fileName = e.target.value.split('\\').pop();
+                }
 
-                    if (fileName) {
-                        sendFile();
-                    }
-                });
+                if (fileName) {
+                    sendFile();
+                }
             });
-        }
+        });
     });
 
     $('#btnStopConference').click(function(e) {
