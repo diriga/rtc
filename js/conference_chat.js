@@ -333,20 +333,20 @@ $(function() {
                     connectedConversation = null;
                     localStream = null;
 
-                    $.ajax({
-                        data: JSON.stringify({ conferenceId: sConferenceId, cancelMessage: "" }),
-                        url: AIDShamanAPIUrl + "Conference/CancelMobile",
-                        // data: JSON.stringify({ conferenceId: 599, cancelMessage: "" }),
-                        // url: "http://localhost:50368/Conference/CancelMobile",
-                        type: 'POST',
-                        contentType: "application/json",
-                        success: function(response) {
-                            console.log(response);
-                        },
-                        error: function(response) {
-                            console.log(response);
-                        }
-                    });
+                    // $.ajax({
+                    //     data: JSON.stringify({ conferenceId: sConferenceId, cancelMessage: "" }),
+                    //     url: AIDShamanAPIUrl + "Conference/CancelMobile",
+                    //     // data: JSON.stringify({ conferenceId: 599, cancelMessage: "" }),
+                    //     // url: "http://localhost:50368/Conference/CancelMobile",
+                    //     type: 'POST',
+                    //     contentType: "application/json",
+                    //     success: function(response) {
+                    //         console.log(response);
+                    //     },
+                    //     error: function(response) {
+                    //         console.log(response);
+                    //     }
+                    // });
 
 
                     // var data = new FormData();
@@ -542,7 +542,7 @@ $(function() {
                     renderUserList();
                     if (document.getElementById('divLoadingMobile')) {
                         document.getElementById('divLoadingMobile').style.display = 'none';
-                        getDoctor();
+                        //getDoctor();
                     }
 
                     if (document.getElementById('divLoadingWeb'))
