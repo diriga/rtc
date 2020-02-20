@@ -7,7 +7,7 @@ var localStream = null;
 //var AIDShamanAPIUrl = "https://telmed.paramedicapps.com.ar/api/";
 //url: "http://paramedicapps.com.ar:9876/Login/GetDoctorViewModelFromConference/" + sConferenceId,
 //url: "https://telmed.paramedicapps.com.ar/api/Login/GetDoctorViewModelFromConference/" + sConferenceId,
-var AIDShamanAPIUrl = "http://localhost:50368/";
+//var AIDShamanAPIUrl = "http://localhost:50368/";
 
 
 $(function() {
