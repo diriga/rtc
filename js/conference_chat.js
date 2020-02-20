@@ -234,8 +234,8 @@ $(function() {
         }*/
 
         if (roomHist == roomId) {
-            $("#containerFinish").show();
-            return;
+            // $("#containerFinish").show();
+            // return;
         } else {
             switch (salaGif) {
                 case 'shaman':
