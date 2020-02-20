@@ -133,18 +133,11 @@ $(function() {
                         localStream = null;
                     }
 
-                    if (esAndroid) {
-                        // window.open('location', '_self', '');
-                        // window.close();
-                        //history.go(-1);
-                        $("#containerFinish").show();
-                    } else {
-                        $("#containerFinish").show();
-                    }
+
                 }
-                if (document.getElementById('divLoadingWeb')) {
-                    location.href = "videoconferencefinish.html";
-                }
+                // if (document.getElementById('divLoadingWeb')) {
+                //     location.href = "videoconferencefinish.html";
+                // }
 
 
                 //document.getElementById('aviso').style.display = 'block';

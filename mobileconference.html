@@ -23,14 +23,6 @@
             <div id="remote-container"></div>
             <div id="local-container"></div>
         </div>
-        <div id="containerFinish" style="display:none;top: 0;height: 100%;width: 100%;position: absolute;background-color: black;z-index: 5;">
-            <small id="title" style="color: #6c757d;position: absolute;z-index: 2;"><i class="fa fa-video-camera"></i></small>
-            <h5 id="aviso" style="color: white;position: absolute;z-index: 4;margin-top: 140px;margin-left: 25px;margin-right: 25px;">
-                <i class="fa fa-check-circle" style="font-size: 25px;"></i><br><br> Su consulta ha sido finalizada, por favor cierre el navegador, y regrese a la app para calificar la atención recibida.</h5>
-        </div>
-    </div>
-    <div id="divNombreDoctor" class="col-md-12 p-2 text-center" style="color:#b3d7ff !important;display: none;">
-        <i class='fa fa-user-md'></i><span id="spanDoctor"></span>
     </div>
     <div class="footer-div" style="display: none;">
         <button id="btnStopConference" class="btn btn-lg btn-outline-info m-4 rounded-circle"><i class="fa fa-stop"></i></button>
@@ -46,7 +38,7 @@
             </div>
             <div class="messaging">
                 <div class="inbox_msg">
-                    <button id="btnCerrarChat" class="btn btn-block btn-info m-1">Cerrar chat</button>                   
+                    <button id="btnCerrarChat" class="btn btn-block btn-info m-1">Cerrar chat</button>
 
                     <div class="mesgs" style="width: 100%;">
                         <div class="msg_history" id="divMensajes">
@@ -56,8 +48,8 @@
                             <div class="input_msg_write">
                                 <input autofocus id="typing-area" type="text" class="write_msg" placeholder="Escribe un mensaje" />
                                 <button id="send-message" class="msg_send_btn" type="button"><i class="fa fa-play" aria-hidden="true"></i></button>
-                                <input class="input-file" id="contactFileToSend" type="file"/> 
-                                <label for="contactFileToSend" class="msg_send_btn" title="Adjuntar archivo"/><i class="fa fa-paperclip" aria-hidden="true"></i></label>
+                                <input class="input-file" id="contactFileToSend" type="file" />
+                                <label for="contactFileToSend" class="msg_send_btn" title="Adjuntar archivo" /><i class="fa fa-paperclip" aria-hidden="true"></i></label>
                             </div>
                         </div>
                     </div>
